@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA126AD11AB7B55D00B365AA /* GMBAVAssetParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AD01AB7B55D00B365AA /* GMBAVAssetParser.m */; };
+		EA126AD41AB7B57400B365AA /* GMBObject.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AD31AB7B57400B365AA /* GMBObject.m */; };
+		EA126AD71AB7B59400B365AA /* GMBAudioChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AD61AB7B59400B365AA /* GMBAudioChannel.m */; };
+		EA126ADB1AB7B5BB00B365AA /* CAUtilityFunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = EA126AD91AB7B5BB00B365AA /* CAUtilityFunctions.c */; };
+		EA126ADE1AB7B5CC00B365AA /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = EA126ADC1AB7B5CC00B365AA /* TPCircularBuffer.c */; };
+		EA126AE11AB7B5E400B365AA /* GMBAudioStreamBasicDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AE01AB7B5E400B365AA /* GMBAudioStreamBasicDescription.m */; };
+		EA126AE51AB7B66E00B365AA /* GMBUtil.c in Sources */ = {isa = PBXBuildFile; fileRef = EA126AE31AB7B66E00B365AA /* GMBUtil.c */; };
+		EA126AE81AB7B6DD00B365AA /* GMBAUGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AE71AB7B6DD00B365AA /* GMBAUGraph.m */; };
+		EA126AED1AB7C69500B365AA /* GMBMixer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AEC1AB7C69500B365AA /* GMBMixer.m */; };
+		EA126AF01AB7C82300B365AA /* GMBDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AEF1AB7C82300B365AA /* GMBDelegate.m */; };
+		EA126AF31AB7C83800B365AA /* GMBChannelStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AF21AB7C83800B365AA /* GMBChannelStrip.m */; };
+		EA126AF61AB7C84700B365AA /* GMBBackgroundTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AF51AB7C84700B365AA /* GMBBackgroundTimer.m */; };
+		EA126AF91AB7C87B00B365AA /* GMBAVExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AF81AB7C87B00B365AA /* GMBAVExporter.m */; };
+		EA126AFC1AB7C8BE00B365AA /* MixerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AFB1AB7C8BE00B365AA /* MixerWindow.m */; };
 		EAC6200E1AB7750A00247B51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC6200D1AB7750A00247B51 /* Cocoa.framework */; };
 		EAC620181AB7750A00247B51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAC620161AB7750A00247B51 /* InfoPlist.strings */; };
 		EAC6201A1AB7750A00247B51 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC620191AB7750A00247B51 /* main.m */; };
@@ -18,6 +32,8 @@
 		EAC6202E1AB7750A00247B51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC6200D1AB7750A00247B51 /* Cocoa.framework */; };
 		EAC620361AB7750A00247B51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAC620341AB7750A00247B51 /* InfoPlist.strings */; };
 		EAC620381AB7750A00247B51 /* HomemadeGraphTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC620371AB7750A00247B51 /* HomemadeGraphTestTests.m */; };
+		EAC620431AB7754E00247B51 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC620421AB7754E00247B51 /* GraphViewController.m */; };
+		EAC620461AB7756F00247B51 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC620451AB7756F00247B51 /* GraphView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +47,35 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA126ACF1AB7B55D00B365AA /* GMBAVAssetParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBAVAssetParser.h; sourceTree = "<group>"; };
+		EA126AD01AB7B55D00B365AA /* GMBAVAssetParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBAVAssetParser.m; sourceTree = "<group>"; };
+		EA126AD21AB7B57400B365AA /* GMBObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBObject.h; sourceTree = "<group>"; };
+		EA126AD31AB7B57400B365AA /* GMBObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBObject.m; sourceTree = "<group>"; };
+		EA126AD51AB7B59400B365AA /* GMBAudioChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBAudioChannel.h; sourceTree = "<group>"; };
+		EA126AD61AB7B59400B365AA /* GMBAudioChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBAudioChannel.m; sourceTree = "<group>"; };
+		EA126AD81AB7B5A400B365AA /* CommonHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeaders.h; sourceTree = "<group>"; };
+		EA126AD91AB7B5BB00B365AA /* CAUtilityFunctions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = CAUtilityFunctions.c; sourceTree = "<group>"; };
+		EA126ADA1AB7B5BB00B365AA /* CAUtilityFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAUtilityFunctions.h; sourceTree = "<group>"; };
+		EA126ADC1AB7B5CC00B365AA /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		EA126ADD1AB7B5CC00B365AA /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		EA126ADF1AB7B5E400B365AA /* GMBAudioStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBAudioStreamBasicDescription.h; sourceTree = "<group>"; };
+		EA126AE01AB7B5E400B365AA /* GMBAudioStreamBasicDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBAudioStreamBasicDescription.m; sourceTree = "<group>"; };
+		EA126AE31AB7B66E00B365AA /* GMBUtil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GMBUtil.c; sourceTree = "<group>"; };
+		EA126AE41AB7B66E00B365AA /* GMBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBUtil.h; sourceTree = "<group>"; };
+		EA126AE61AB7B6DD00B365AA /* GMBAUGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBAUGraph.h; sourceTree = "<group>"; };
+		EA126AE71AB7B6DD00B365AA /* GMBAUGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBAUGraph.m; sourceTree = "<group>"; };
+		EA126AEB1AB7C69500B365AA /* GMBMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBMixer.h; sourceTree = "<group>"; };
+		EA126AEC1AB7C69500B365AA /* GMBMixer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBMixer.m; sourceTree = "<group>"; };
+		EA126AEE1AB7C82300B365AA /* GMBDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBDelegate.h; sourceTree = "<group>"; };
+		EA126AEF1AB7C82300B365AA /* GMBDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBDelegate.m; sourceTree = "<group>"; };
+		EA126AF11AB7C83800B365AA /* GMBChannelStrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBChannelStrip.h; sourceTree = "<group>"; };
+		EA126AF21AB7C83800B365AA /* GMBChannelStrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBChannelStrip.m; sourceTree = "<group>"; };
+		EA126AF41AB7C84700B365AA /* GMBBackgroundTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBBackgroundTimer.h; sourceTree = "<group>"; };
+		EA126AF51AB7C84700B365AA /* GMBBackgroundTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBBackgroundTimer.m; sourceTree = "<group>"; };
+		EA126AF71AB7C87B00B365AA /* GMBAVExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBAVExporter.h; sourceTree = "<group>"; };
+		EA126AF81AB7C87B00B365AA /* GMBAVExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBAVExporter.m; sourceTree = "<group>"; };
+		EA126AFA1AB7C8BE00B365AA /* MixerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixerWindow.h; sourceTree = "<group>"; };
+		EA126AFB1AB7C8BE00B365AA /* MixerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixerWindow.m; sourceTree = "<group>"; };
 		EAC6200A1AB7750A00247B51 /* HomemadeGraphTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomemadeGraphTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC6200D1AB7750A00247B51 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EAC620101AB7750A00247B51 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -50,6 +95,10 @@
 		EAC620331AB7750A00247B51 /* HomemadeGraphTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HomemadeGraphTestTests-Info.plist"; sourceTree = "<group>"; };
 		EAC620351AB7750A00247B51 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EAC620371AB7750A00247B51 /* HomemadeGraphTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomemadeGraphTestTests.m; sourceTree = "<group>"; };
+		EAC620411AB7754E00247B51 /* GraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		EAC620421AB7754E00247B51 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
+		EAC620441AB7756F00247B51 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		EAC620451AB7756F00247B51 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +122,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA126AE21AB7B5FB00B365AA /* Support */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 		EAC620011AB7750A00247B51 = {
 			isa = PBXGroup;
 			children = (
@@ -117,7 +173,41 @@
 			children = (
 				EAC6201F1AB7750A00247B51 /* AppDelegate.h */,
 				EAC620201AB7750A00247B51 /* AppDelegate.m */,
+				EA126ACF1AB7B55D00B365AA /* GMBAVAssetParser.h */,
+				EA126AD01AB7B55D00B365AA /* GMBAVAssetParser.m */,
+				EA126AEB1AB7C69500B365AA /* GMBMixer.h */,
+				EA126AEC1AB7C69500B365AA /* GMBMixer.m */,
 				EAC620221AB7750A00247B51 /* MainMenu.xib */,
+				EAC620411AB7754E00247B51 /* GraphViewController.h */,
+				EAC620421AB7754E00247B51 /* GraphViewController.m */,
+				EA126AE61AB7B6DD00B365AA /* GMBAUGraph.h */,
+				EA126AE71AB7B6DD00B365AA /* GMBAUGraph.m */,
+				EAC620441AB7756F00247B51 /* GraphView.h */,
+				EA126AD81AB7B5A400B365AA /* CommonHeaders.h */,
+				EA126AE31AB7B66E00B365AA /* GMBUtil.c */,
+				EA126AE41AB7B66E00B365AA /* GMBUtil.h */,
+				EA126AF11AB7C83800B365AA /* GMBChannelStrip.h */,
+				EA126AF21AB7C83800B365AA /* GMBChannelStrip.m */,
+				EA126AF41AB7C84700B365AA /* GMBBackgroundTimer.h */,
+				EA126AF51AB7C84700B365AA /* GMBBackgroundTimer.m */,
+				EA126AF71AB7C87B00B365AA /* GMBAVExporter.h */,
+				EA126AF81AB7C87B00B365AA /* GMBAVExporter.m */,
+				EA126AEE1AB7C82300B365AA /* GMBDelegate.h */,
+				EA126AEF1AB7C82300B365AA /* GMBDelegate.m */,
+				EA126AD91AB7B5BB00B365AA /* CAUtilityFunctions.c */,
+				EA126AFA1AB7C8BE00B365AA /* MixerWindow.h */,
+				EA126AFB1AB7C8BE00B365AA /* MixerWindow.m */,
+				EA126ADA1AB7B5BB00B365AA /* CAUtilityFunctions.h */,
+				EA126ADF1AB7B5E400B365AA /* GMBAudioStreamBasicDescription.h */,
+				EA126AE01AB7B5E400B365AA /* GMBAudioStreamBasicDescription.m */,
+				EA126AD51AB7B59400B365AA /* GMBAudioChannel.h */,
+				EA126AD61AB7B59400B365AA /* GMBAudioChannel.m */,
+				EA126AD21AB7B57400B365AA /* GMBObject.h */,
+				EA126AD31AB7B57400B365AA /* GMBObject.m */,
+				EA126ADC1AB7B5CC00B365AA /* TPCircularBuffer.c */,
+				EA126ADD1AB7B5CC00B365AA /* TPCircularBuffer.h */,
+				EA126AE21AB7B5FB00B365AA /* Support */,
+				EAC620451AB7756F00247B51 /* GraphView.m */,
 				EAC620251AB7750A00247B51 /* Images.xcassets */,
 				EAC620141AB7750A00247B51 /* Supporting Files */,
 			);
@@ -252,8 +342,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA126AE11AB7B5E400B365AA /* GMBAudioStreamBasicDescription.m in Sources */,
+				EA126AE81AB7B6DD00B365AA /* GMBAUGraph.m in Sources */,
+				EA126AD71AB7B59400B365AA /* GMBAudioChannel.m in Sources */,
+				EA126AFC1AB7C8BE00B365AA /* MixerWindow.m in Sources */,
+				EA126AF91AB7C87B00B365AA /* GMBAVExporter.m in Sources */,
 				EAC620211AB7750A00247B51 /* AppDelegate.m in Sources */,
 				EAC6201A1AB7750A00247B51 /* main.m in Sources */,
+				EA126AD11AB7B55D00B365AA /* GMBAVAssetParser.m in Sources */,
+				EA126AF61AB7C84700B365AA /* GMBBackgroundTimer.m in Sources */,
+				EAC620431AB7754E00247B51 /* GraphViewController.m in Sources */,
+				EA126AF01AB7C82300B365AA /* GMBDelegate.m in Sources */,
+				EAC620461AB7756F00247B51 /* GraphView.m in Sources */,
+				EA126ADE1AB7B5CC00B365AA /* TPCircularBuffer.c in Sources */,
+				EA126AED1AB7C69500B365AA /* GMBMixer.m in Sources */,
+				EA126AF31AB7C83800B365AA /* GMBChannelStrip.m in Sources */,
+				EA126ADB1AB7B5BB00B365AA /* CAUtilityFunctions.c in Sources */,
+				EA126AD41AB7B57400B365AA /* GMBObject.m in Sources */,
+				EA126AE51AB7B66E00B365AA /* GMBUtil.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +572,7 @@
 				EAC6203D1AB7750A00247B51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EAC6203E1AB7750A00247B51 /* Build configuration list for PBXNativeTarget "HomemadeGraphTestTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +581,7 @@
 				EAC620401AB7750A00247B51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
