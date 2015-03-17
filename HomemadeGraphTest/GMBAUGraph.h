@@ -20,38 +20,38 @@
 	GMBAudioStreamBasicDescription* _asbd;
 }
 
-@property (readwrite) BOOL							  playing;
+@property (readwrite) BOOL				playing;
 
-@property (readwrite) AUGraph						   graph;
-@property			 NSNumber*						 nSourceTracks;
-@property BOOL										  setupDone;
+@property (readwrite) AUGraph				graph;
+@property	NSNumber*				nSourceTracks;
+@property BOOL						setupDone;
 
-@property (readwrite) AUNode*						   insertNodes;
-@property (readwrite) AudioUnit*						inserts;
-@property (readwrite) AudioComponentDescription*		insertComponentDescriptions;
-@property (readwrite) AUNode*						   limiterNode;
-@property (readwrite) AUNode*						   multiMixerNode;
-@property (readwrite) AUNode*						   outputNode;
-@property (readwrite) AUNode*						   splitterNode;
-@property (readwrite) AudioUnit						 limiter;
-@property (readwrite) AudioUnit						 multiMixer;
-@property (readwrite) AudioUnit						 outputUnit;
-@property (readwrite) AudioUnit						 splitter;
-@property (readwrite) AudioComponentDescription		 limiterComponentDescription;
-@property (readwrite) AudioComponentDescription		 multiMixerComponentDescription;
-@property (readwrite) AudioComponentDescription		 outputComponentDescription;
-@property (readwrite) AudioComponentDescription		 splitterComponentDescription;
-@property (readwrite) AudioComponentDescription		 mergerComponentDescription;
-@property (readwrite) AudioComponentDescription		 converterComponentDescription;
-@property (readwrite) AudioComponentDescription		 genericOutputComponentDescription;
+@property (readwrite) AUNode*				insertNodes;
+@property (readwrite) AudioUnit*			inserts;
+@property (readwrite) AudioComponentDescription*	insertComponentDescriptions;
+@property (readwrite) AUNode*				limiterNode;
+@property (readwrite) AUNode*				multiMixerNode;
+@property (readwrite) AUNode*				outputNode;
+@property (readwrite) AUNode*				splitterNode;
+@property (readwrite) AudioUnit				limiter;
+@property (readwrite) AudioUnit				multiMixer;
+@property (readwrite) AudioUnit				outputUnit;
+@property (readwrite) AudioUnit				splitter;
+@property (readwrite) AudioComponentDescription		limiterComponentDescription;
+@property (readwrite) AudioComponentDescription		multiMixerComponentDescription;
+@property (readwrite) AudioComponentDescription		outputComponentDescription;
+@property (readwrite) AudioComponentDescription		splitterComponentDescription;
+@property (readwrite) AudioComponentDescription		mergerComponentDescription;
+@property (readwrite) AudioComponentDescription		converterComponentDescription;
+@property (readwrite) AudioComponentDescription		genericOutputComponentDescription;
 @property (strong)	GMBAudioStreamBasicDescription*   asbd;
-@property NSMutableArray*							   outputTrackBusArray;
-@property AUNodeRenderCallback*						 nodeRenderCallbacks;
-@property AURenderCallbackStruct*					   renderCallbackStructs;
-@property AURenderCallback*							 renderCallback;
-@property NSMutableArray*							   renderCallbackList;
-@property GMBAudioQueueUserData*						userDataStructs;
-@property GMBOutputBus*								 outputBusArray;
+@property NSMutableArray*				outputTrackBusArray;
+@property AUNodeRenderCallback*				nodeRenderCallbacks;
+@property AURenderCallbackStruct*			renderCallbackStructs;
+@property AURenderCallback*				renderCallback;
+@property NSMutableArray*				renderCallbackList;
+@property GMBAudioQueueUserData*			userDataStructs; /* Owned by GMBAVAssetParser! */
+@property GMBOutputBus*					outputBusArray;
 
 
 

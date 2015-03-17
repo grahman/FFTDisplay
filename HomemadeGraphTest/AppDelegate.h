@@ -15,6 +15,7 @@
 #import "GMBChannelStrip.h"
 #import "MixerWindow.h"
 #import "GMBAVExporter.h"
+#import "GMBFourierAnalyzer.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
@@ -49,5 +50,7 @@
 @property (weak) IBOutlet NSButton		 	*resetButton;
 @property CGPoint					upperLeftCornerOfScreen;
 @property BOOL						movieWindowCreated;
+@property GMBFourierAnalyzer* 				fourierAnalyzer;
+
 
 @end

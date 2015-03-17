@@ -8,6 +8,9 @@
 
 #import "GMBMixer.h"
 
+#import "GMBFourierAnalyzer.h"
+extern struct fft_data fftd;
+
 static int pass = 0;
 static OSStatus inputRenderCallback (
 		void			*inRefCon,	//A pointer to a struct containing the complete audio data
@@ -25,8 +28,9 @@ static OSStatus inputRenderCallback (
 									//		AudioBufferList.
 )
 {
-	if (pass == 3300)
-		printf("breakpoint\n");
+#ifdef FFT
+	unsigned int n = fftd.N - fftd.pos;
+#endif
 	GMBAudioQueueUserData* userData = (GMBAudioQueueUserData*)inRefCon;
 
 	UInt32 inNumChannels = ioData->mNumberBuffers;				  //Are we stereo or mono?
@@ -57,7 +61,7 @@ static OSStatus inputRenderCallback (
 
 	if (inNumChannels == 1)
 	{
-		if (userData->streamFormat.mChannelsPerFrame == 1)		  //Simple case of mono to mono pass-through
+		if (userData->streamFormat.mChannelsPerFrame == 1)	//Simple case of mono to mono pass-through
 		{
 			//Make sure that (bytesToCopy > 0) by this point, otherwise infinite loop ahead
 			while (1)
@@ -65,6 +69,14 @@ static OSStatus inputRenderCallback (
 				memcpy(ioData->mBuffers[0].mData + bytesRead,
 					tail,
 					bytesToCopy);
+#ifdef FFT
+				/* FFT Analysis */
+				if (n < (bytesToCopy / sizeof(float)))
+					memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
+				else
+					memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+				/* End FFT Analysis */
+#endif
 				TPCircularBufferConsume(&userData->buf, bytesToCopy);
 				tail = TPCircularBufferTail(&userData->buf, &availableBytes);
 				bytesRead += bytesToCopy;
@@ -75,71 +87,93 @@ static OSStatus inputRenderCallback (
 			}
 			ioData->mBuffers[0].mDataByteSize = bytesRead;
 		}
-		if (userData->streamFormat.mChannelsPerFrame == 2)		  //Stereo source to mono bus (sum left and right channels)
+		if (userData->streamFormat.mChannelsPerFrame == 2)	//Stereo source to mono bus (sum left and right channels)
 		{
-			GMBAudioSample32BitFloat_t sampleL = 0;
-			GMBAudioSample32BitFloat_t sampleR = 0;
-			GMBAudioSample32BitFloat_t sampleSum = 0;
+			float sampleL = 0;
+			float sampleR = 0;
+			float sampleSum = 0;
 			int pos = 0;
 			for (int i = 0; i < inNumberFrames * 2; ++i)
 			{
-				memcpy(&sampleL, tail, sizeof(GMBAudioSample32BitFloat_t));										//Copy left channel
-				memcpy(&sampleR, tail + sizeof(GMBAudioSample32BitFloat_t), sizeof(GMBAudioSample32BitFloat_t));   //Copy right channel
+				memcpy(&sampleL, tail, sizeof(float));			//Copy left channel
+				memcpy(&sampleR, tail + sizeof(float), sizeof(float));  //Copy right channel
 				TPCircularBufferConsume(&userData->buf, 8);
 				tail = TPCircularBufferTail(&userData->buf, &availableBytes);
 				sampleL *= 0.5; sampleR *= 0.5; sampleSum = sampleL + sampleR;		  //This should stop it from clipping.
 				memcpy(ioData->mBuffers[0].mData + pos, &sampleSum, sizeof(sampleSum));
-				bytesRead += (sizeof(GMBAudioSample32BitFloat_t) * 2);
-				userData->bytePos += (sizeof(GMBAudioSample32BitFloat_t) * 2);
-				bytesToCopy -= (sizeof(GMBAudioSample32BitFloat_t) );
-				pos += sizeof(GMBAudioSample32BitFloat_t);
+#ifdef FFT
+				/* FFT Analysis */
+				if (n < (bytesToCopy / sizeof(float)))
+					memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
+				else
+					memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+				/* End FFT Analysis */
+#endif
+				bytesRead += (sizeof(float) * 2);
+				userData->bytePos += (sizeof(float) * 2);
+				bytesToCopy -= (sizeof(float) );
+				pos += sizeof(float);
 				if ( bytesToCopy < 1)
-				{
 					break;
-				}
 			}
 			ioData->mBuffers[0].mDataByteSize = bytesRead;
 		}
 	}
-	else															//inNumChannels = 2
+	else	//inNumChannels = 2
 	{
-		if (userData->streamFormat.mChannelsPerFrame == 2)		  //Stereo source, must deinterleave
+		if (userData->streamFormat.mChannelsPerFrame == 2)	//Stereo source, must deinterleave
 		{
 			int posL = 0;
 			int posR = 0;
-			GMBAudioSample32BitFloat_t sample = 0;
+			float sample = 0;
 			bytesToCopy *= 2;
 			if (bytesToCopy > availableBytes)
 			{
 				bytesToCopy = (int)userData->totalBytesInBuffer - (int)userData->bytePos;
 			}
-			if (inNumberFrames > (availableBytes) / sizeof(GMBAudioSample32BitFloat_t))
+			if (inNumberFrames > (availableBytes) / sizeof(float))
 			{
-				inNumberFrames = (availableBytes) / sizeof(GMBAudioSample32BitFloat_t);
+				inNumberFrames = (availableBytes) / sizeof(float);
 			}
 
 			for (int i = 0; i < inNumberFrames * 2; ++i)
 			{
-				memcpy(&sample, tail, sizeof(GMBAudioSample32BitFloat_t));
-				TPCircularBufferConsume(&userData->buf, sizeof(GMBAudioSample32BitFloat_t));
+				memcpy(&sample, tail, sizeof(float));
+				TPCircularBufferConsume(&userData->buf, sizeof(float));
 				tail = TPCircularBufferTail(&userData->buf, &availableBytes);
 				if (i % 2 == 0)
 				{
-					memcpy(&ioData->mBuffers[0].mData[posL], &sample, sizeof(GMBAudioSample32BitFloat_t));
-					posL += sizeof(GMBAudioSample32BitFloat_t);
-					bytesRead += sizeof(GMBAudioSample32BitFloat_t);
-					bytesToCopy -= sizeof(GMBAudioSample32BitFloat_t);
-					userData->bytePos += sizeof(GMBAudioSample32BitFloat_t);		// += 4
+					memcpy(&ioData->mBuffers[0].mData[posL], &sample, sizeof(float));
+#ifdef FFT
+					/* FFT Analysis */
+					if (n)
+						fftd.REX1[fftd.pos] = sample;
+					/* End FFT Analysis */
+#endif
+					posL += sizeof(float);
+					bytesRead += sizeof(float);
+					bytesToCopy -= sizeof(float);
+					userData->bytePos += sizeof(float);		// += 4
 					if (bytesToCopy < 1)
 						break;
 				}
 				else
 				{
-					memcpy(&ioData->mBuffers[1].mData[posR], &sample, sizeof(GMBAudioSample32BitFloat_t));
-					posR += sizeof(GMBAudioSample32BitFloat_t);
-					bytesRead += sizeof(GMBAudioSample32BitFloat_t);
-					bytesToCopy -= sizeof(GMBAudioSample32BitFloat_t);
-					userData->bytePos += sizeof(GMBAudioSample32BitFloat_t);		// += 4
+					memcpy(&ioData->mBuffers[1].mData[posR], &sample, sizeof(float));
+#ifdef FFT
+					/* FFT Analysis */
+					if (n) {
+						fftd.REX2[fftd.pos] = sample;
+						fftd.pos++;
+						++n;
+					}
+					
+					/* End FFT Analysis */
+#endif
+					posR += sizeof(float);
+					bytesRead += sizeof(float);
+					bytesToCopy -= sizeof(float);
+					userData->bytePos += sizeof(float);		// += 4
 					if (bytesToCopy  < 1)
 						break;
 				}
@@ -152,19 +186,26 @@ static OSStatus inputRenderCallback (
 			//Since input is mono, duplicate each sample into the other buffer
 			for (int i = 0; i < inNumberFrames; ++i)
 			{
-				memcpy(ioData->mBuffers[0].mData + bytesRead, tail, sizeof(GMBAudioSample32BitFloat_t));
-				memcpy(ioData->mBuffers[1].mData + bytesRead, tail, sizeof(GMBAudioSample32BitFloat_t));
-				TPCircularBufferConsume(&userData->buf, sizeof(GMBAudioSample32BitFloat_t));
+				memcpy(ioData->mBuffers[0].mData + bytesRead, tail, sizeof(float));
+				memcpy(ioData->mBuffers[1].mData + bytesRead, tail, sizeof(float));
+#ifdef FFT
+				/* FFT Analysis */
+				if (n < (bytesToCopy / sizeof(float)))
+					memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
+				else
+					memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+				/* End FFT Analysis */
+#endif
+				TPCircularBufferConsume(&userData->buf, sizeof(float));
 				tail = TPCircularBufferTail(&userData->buf, &availableBytes);
-				bytesRead += sizeof(GMBAudioSample32BitFloat_t);
-				bytesToCopy -= sizeof(GMBAudioSample32BitFloat_t);
-				userData->bytePos += sizeof(GMBAudioSample32BitFloat_t);
+				bytesRead += sizeof(float);
+				bytesToCopy -= sizeof(float);
+				userData->bytePos += sizeof(float);
 				if (bytesToCopy < 1)
 					break;
 			}
 			ioData->mBuffers[0].mDataByteSize = bytesRead;
 			ioData->mBuffers[1].mDataByteSize = bytesRead;
-
 		}
 }
 	++pass;
@@ -243,15 +284,6 @@ static OSStatus inputRenderCallback (
 	}
    }
 
--(void)bufferData:(AVAssetReaderTrackOutput*)source
-{
-
-}
-
--(void)enqueueSampleBuffer:(AVAssetReaderAudioMixOutput *)buffer
-{
-
-}
 
 -(BOOL)hasMoreSampleBuffersToProvide
 {

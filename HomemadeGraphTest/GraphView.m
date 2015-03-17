@@ -39,20 +39,24 @@
 	
 	/* Draw the grid lines */
 	CGMutablePathRef grid = CGPathCreateMutable();
+	
+	/* x axis */
 	CGPathMoveToPoint(grid, &CGAffineTransformIdentity,
-			  self.frame.origin.x,
-			  20);
+			  self.frame.origin.x + 40,
+			  40);
 	CGPathAddLineToPoint(grid,
 			     &CGAffineTransformIdentity,
 			     self.frame.size.width,
-			     20);
+			     40);
+	
+	/* y axis */
 	CGPathMoveToPoint(grid,
 			  &CGAffineTransformIdentity,
-			  self.frame.size.width / 2.0,
-			  0);
+			  40,
+			  40);
 	CGPathAddLineToPoint(grid,
 			     &CGAffineTransformIdentity,
-			     self.frame.size.width / 2.0,
+			     40,
 			     self.frame.size.height);
 	CGPathCloseSubpath(grid);
 	
@@ -60,8 +64,6 @@
 	CGContextSetStrokeColorWithColor(ctx, [[NSColor blackColor] CGColor]);
 	CGContextStrokePath(ctx);
 	[self setNeedsDisplay:YES];
-
-	
 }
 
 

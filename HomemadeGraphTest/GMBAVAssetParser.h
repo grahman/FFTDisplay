@@ -35,40 +35,40 @@ typedef struct
 @interface GMBAVAssetParser : GMBObject
 {
 	GMBLeftoverBufferList*   _leftoverBufferList;
-	UInt32				   _numAudioAssetReadersReady;
-	BOOL					_audioBufferedAndReady;
+	UInt32			_numAudioAssetReadersReady;
+	BOOL			_audioBufferedAndReady;
 }
 
 
-@property AVURLAsset*					   URLAsset;
-@property AVAsset*						  asset;
-@property AVAssetReader*					assetReader;
-@property AVAssetReader*					audioAssetReader;					   //Singular!
-@property NSMutableArray*				   audioAssetReaders;					  //Contains AVAssetReaders for the audio tracks.
-@property AVAssetWriter*					assetWriter;
-@property AVPlayerItem*					 playerItem;
-@property AVPlayer*						 player;
-@property AVAssetReaderOutput*			  assetReaderOutput;
-@property NSArray*						  audioTracks;
-@property NSArray*						  videoTracks;
-@property AVAssetReaderTrackOutput*		 videoTrackOutput;
-@property NSMutableArray*				   assetReaderAudioTrackOutputs;		   //This will contain GMBAudioChannel's and GMBStereoAudioChannels
-@property NSMutableArray*				   assetReaderAudioMixOutputs;
-@property NSMutableArray*				   audioChannelStrips;
-@property NSDictionary*					 outputSettings;						 //Configure this at some point
-@property CMSampleBufferRef				 sampleBuffer;						   //Raw audio samples
-@property CMAudioFormatDescriptionRef	   audioFormats;
-@property CMTime							duration;							   //in seconds
-@property NSMutableArray*				   originalAudioStreamBasicDescriptions;   //Stream descriptions from media file metadata
-@property NSMutableArray*				   playbackAudioStreamBasicDescriptions;   //Stream descriptions for processing and playback
-@property GMBAudioStreamBasicDescription*   assetASBD;
-@property (weak) NSDictionary*			  playBackSettings;
-@property AudioBufferList*				  auBufList;
-@property NSMutableArray*				   audioStreamDataStructs;
-@property GMBAudioQueueUserData*			userDataStructs;
-@property NSNumber*						 mediaIsReady;						   //1 is yes, 0 is no
-@property AudioStreamBasicDescription	   originalASBD;
-@property BOOL							  audioBufferedAndReady;
+@property AVURLAsset*				URLAsset;
+@property AVAsset*				asset;
+@property AVAssetReader*			assetReader;
+@property AVAssetReader*			audioAssetReader;					   //Singular!
+@property NSMutableArray*			audioAssetReaders;					  //Contains AVAssetReaders for the audio tracks.
+@property AVAssetWriter*			assetWriter;
+@property AVPlayerItem*				playerItem;
+@property AVPlayer*				player;
+@property AVAssetReaderOutput*			assetReaderOutput;
+@property NSArray*				audioTracks;
+@property NSArray*				videoTracks;
+@property AVAssetReaderTrackOutput*		videoTrackOutput;
+@property NSMutableArray*			assetReaderAudioTrackOutputs;		   //This will contain GMBAudioChannel's and GMBStereoAudioChannels
+@property NSMutableArray*			assetReaderAudioMixOutputs;
+@property NSMutableArray*			audioChannelStrips;
+@property NSDictionary*				outputSettings;						 //Configure this at some point
+@property CMSampleBufferRef			sampleBuffer;						   //Raw audio samples
+@property CMAudioFormatDescriptionRef	   	audioFormats;
+@property CMTime				duration;							   //in seconds
+@property NSMutableArray*			originalAudioStreamBasicDescriptions;   //Stream descriptions from media file metadata
+@property NSMutableArray*			playbackAudioStreamBasicDescriptions;   //Stream descriptions for processing and playback
+@property GMBAudioStreamBasicDescription*   	assetASBD;
+@property (weak) NSDictionary*			playBackSettings;
+@property AudioBufferList*			auBufList;
+@property NSMutableArray*			audioStreamDataStructs;
+@property GMBAudioQueueUserData*		userDataStructs;
+@property NSNumber*				mediaIsReady;						   //1 is yes, 0 is no
+@property AudioStreamBasicDescription	   	originalASBD;
+@property BOOL					audioBufferedAndReady;
 
 -(id) initWithFileURL:(NSString*)mediaItemPath_;
 -(void) startReading;

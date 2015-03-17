@@ -34,6 +34,7 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 @synthesize initialized;
 @synthesize upperLeftCornerOfScreen;
 @synthesize movieWindowCreated;
+@synthesize fourierAnalyzer;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -94,6 +95,7 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		
 	}
 	initialized = YES;
+	fourierAnalyzer = [[GMBFourierAnalyzer alloc] initWithBins:2048];
 }
 
 - (IBAction)openMenuClicked:(id)sender

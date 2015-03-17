@@ -78,16 +78,16 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 		AudioStreamBasicDescription destASBD;
 		memset(&destASBD, 0, sizeof(AudioStreamBasicDescription));
 
-		origASBD = CMAudioFormatDescriptionGetStreamBasicDescription((__bridge CMAudioFormatDescriptionRef)(auTrack.formatDescriptions.firstObject));
+		origASBD = (AudioStreamBasicDescription *)CMAudioFormatDescriptionGetStreamBasicDescription((__bridge CMAudioFormatDescriptionRef)(auTrack.formatDescriptions.firstObject));
 		originalASBD = *origASBD;
 		GMBFillOutASBDForLPCM(&destASBD,
-							origASBD->mSampleRate,
-							origASBD->mChannelsPerFrame,
-							32,
-							32,
-							true,
-							false,
-							(origASBD->mChannelsPerFrame > 1) ? false : true);
+					origASBD->mSampleRate,
+					origASBD->mChannelsPerFrame,
+					32,
+					32,
+					true,
+					false,
+					(origASBD->mChannelsPerFrame > 1) ? false : true);
 
 		(userDataStructs + i)->streamFormat = destASBD;
 		TPCircularBufferInit(&userDataStructs[i].buf, CIRCULARBUFFERLISTSIZE );		 //This gives us about 15 seconds of mono audio at 48000khz total in the buffer, and is divisible by the average size of an audio buffer list read out of an avassettrackoutput.
@@ -139,7 +139,7 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 				freeLeftOverBuffer(&_leftoverBufferList[i]);
 
 			}
-			else									//If there is no leftover buffer list, control flow goes here.
+			else	//If there is no leftover buffer list, control flow goes here.
 			{
 				CMSampleBufferRef bufferRef;
 				AudioBufferList bufferList;
@@ -201,10 +201,6 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 		videoTrackOutput = [[AVAssetReaderTrackOutput alloc] initWithTrack:[asset tracksWithMediaType:AVMediaTypeVideo].firstObject outputSettings:nil];
 	}
 
-
-
-
-
 	//****************************End For Looop******************************************/
 	[self setValue:[NSNumber numberWithBool:YES] forKey:NSStringFromSelector(@selector(mediaIsReady))] ;
 	NSLog(@"AVAsset with URL \"%@\" has been parsed!", mediaItemPath_);
@@ -255,8 +251,6 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 				{
 
 					CheckError(CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(bufferRef,  &bufSizeInFrames, &bufferList, sizeof(AudioBufferList), kCFAllocatorDefault, kCFAllocatorDefault, 0, &blockBufferRef), "Getting Audio Buffer List from avassettrackoutput");
-
-					//				memcpy(&(userDataStructs + i)->buf[bufWritePos], bufferList.mBuffers->mData, bufferList.mBuffers->mDataByteSize);
 					bufWritePos += bufferList.mBuffers->mDataByteSize;
 					if (availableBytes >= bufferList.mBuffers[0].mDataByteSize)
 					{
@@ -349,8 +343,6 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 
 		while(availableBytes && !done)
 		{
-
-
 			//First we check to see if there is a leftover buffer list from the previous run.
 			if (_leftoverBufferList[i].bytesUsed)
 			{
@@ -444,7 +436,6 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 			head = TPCircularBufferHead(&userDataStructs[i].buf, &availableBytes);
 		}
 		++i;
-		//		assetReader_ = nil;
 	}
 
 }
@@ -460,17 +451,14 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 	[self recreateAudioAssetReaders];
 	CMTimeRange newTimeRange = CMTimeRangeMake(time, asset.duration);
 	int i=0;
-//	while (![[self mediaIsReady] boolValue]);
 	for (AVAssetReader* reader in audioAssetReaders)
 	{
-//		[reader addOutput:[assetReaderAudioTrackOutputs objectAtIndex:i]];
 		++i;
 		reader.timeRange = newTimeRange;
 		[self clearCircularBuffers];
 		if([reader startReading])
 			NSLog(@"GMBAVAssetParser: [reader startReading] was successful");
 	}
-//	[audioAssetReader startReading];
 	[self fillCircularBuffer];
 
 }
@@ -487,7 +475,6 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 		[auReader removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
 	}
 
-//	[assetReader removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
 	_numAudioAssetReadersReady = 0;
 	[self setValue:[NSNumber numberWithBool:NO] forKey:NSStringFromSelector(@selector(mediaIsReady))];
 	_numAudioAssetReadersReady = 0; 
@@ -500,11 +487,6 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 
 	NSError* err;
 	audioAssetReader = [[AVAssetReader alloc] initWithAsset:asset error:&err];
-	//Set up kvo to know when the status is ready. Will need to report back to AppDelegate.
-//	[audioAssetReader addObserver:self
-//					   forKeyPath:NSStringFromSelector(@selector(status))
-//						  options:NSKeyValueObservingOptionNew
-//						  context:mediaStatusChangedInternalContext];
 
 	int i = 0;
 	for (AVAssetTrack* auTrack in audioTracks)
@@ -583,15 +565,7 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 
 -(void) freeUserDataStructs
 {
-//	if (userDataStructs != NULL)
-//	{
-//		for (int i=0; i < audioTracks.count; ++i)
-//		{
-//			free(userDataStructs[i].buf);
-//		}
-//		free(userDataStructs);
-//		NSLog(@"userDataStructs have been freed\n");
-//	}
+
 }
 
 +(NSDictionary*)convertASBDToNSDictionary:(AudioStreamBasicDescription)asbd_

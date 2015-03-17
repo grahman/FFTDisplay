@@ -49,11 +49,23 @@
 	renderCallbackList = [[NSMutableArray alloc] init];
 	nSourceTracks = [NSNumber alloc];
 	insertNodes = malloc(sizeof(AUNode)* MAXINSERTS);
+	if (!insertNodes)
+		die("insertNodes malloc failed\n");
 	insertComponentDescriptions = malloc(sizeof(AudioComponentDescription) * MAXINSERTS);
+	if (!insertComponentDescriptions)
+		die("insertComponentDesriptions malloc failed\n");
 	inserts = malloc(sizeof(AudioUnit) * MAXINSERTS);
+	if (!inserts)
+		die("inserts malloc failed\n");
 	nodeRenderCallbacks = malloc(sizeof(AUNodeRenderCallback) * MAXINSERTS);
+	if (!nodeRenderCallbacks)
+		die("nodeRenderCallbacks malloc failed\n");
 	renderCallbackStructs = malloc(sizeof(AURenderCallbackStruct));
+	if (!renderCallbackStructs)
+		die("renderCallbackStructs malloc failed\n");
 	renderCallback = malloc(sizeof(AURenderCallback*));
+	if (!renderCallback)
+		die("renderCallback malloc failed\n");
 
 
 	limiterComponentDescription.componentManufacturer = kAudioUnitManufacturer_Apple;
@@ -128,8 +140,6 @@
 	UInt32 busCount   = [nSourceTracks intValue];	// bus count for mixer unit input
 	outputBusArray = malloc(sizeof(GMBOutputBus) * busCount);
 	CheckError(AudioUnitSetProperty(multiMixer, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &busCount, sizeof(busCount)), "AudioUnitSetProperty");
-
-
 
 	for (int i=0; i < busCount; ++i)
 	{
@@ -309,14 +319,6 @@
 		CheckError(AudioUnitSetProperty(outputBusArray[busNumber].splitter, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &asbd_, sizeof(AudioStreamBasicDescription)), "Error updating the stream format of mixer output");
 
 
-//		if (asbd_.mChannelsPerFrame > sourceASBD.mChannelsPerFrame)
-//		{
-//			AudioStreamBasicDescription tempASBD = userDataStructs[i].streamFormat;
-//			renderCallbackStruct.inputProc = inputRenderCallback;
-//			renderCallbackStruct.inputProcRefCon = (void*)&userDataStructs[i];						  //Passing the first audio channel for testing purposes
-//			CheckError(AUGraphSetNodeInputCallback(graph.graph, graph.outputBusArray[i].converter_preNode, 0, &renderCallbackStruct), "Registering input callback");
-//		}
-
 		//Now reconnect all the nodes
 		CheckError(AUGraphConnectNodeInput(graph, outputBusArray[busNumber].converter_preNode, 0, outputBusArray[busNumber].mixerNode, 0), "Error re-connecting converter_pre to mixer");
 		CheckError(AUGraphConnectNodeInput(graph, outputBusArray[busNumber].mixerNode, 0, outputBusArray[busNumber].limiterNode, 0), "Error re-connecting mixernode to limiternode");
@@ -327,29 +329,13 @@
 
 		//If graph had been running before, then resume playing back audio automatically
 		if (isRunning)
-		{
 			CheckError(AUGraphStart(graph), "Error resuming playback");
-		}
 	}
-
-
-
-
 	return YES;
 }
 
 -(void)dealloc
 {
-
-//	renderCallbackList = [[NSMutableArray alloc] init];
-//	nSourceTracks = [NSNumber alloc];
-//	insertNodes = malloc(sizeof(AUNode)* MAXINSERTS);
-//	insertComponentDescriptions = malloc(sizeof(AudioComponentDescription) * MAXINSERTS);
-//	inserts = malloc(sizeof(AudioUnit) * MAXINSERTS);
-//	nodeRenderCallbacks = malloc(sizeof(AUNodeRenderCallback) * MAXINSERTS);
-//	renderCallbackStructs = malloc(sizeof(AURenderCallbackStruct));
-//	renderCallback = malloc(sizeof(AURenderCallback*));
-
 	free(insertNodes);
 	free(insertComponentDescriptions);
 	free(inserts);

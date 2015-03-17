@@ -45,31 +45,20 @@ typedef bool (*TriggerFn) ();		   //A generic pointer to a function that does so
 
 typedef struct
 {
-	CMSampleBufferRef*	  bufferRefs;
-	CMBlockBufferRef*	   blockBufferRefs;
-	AudioBufferList*		bufferLists;
-	UInt32				  bufferCount;
+	CMSampleBufferRef*	bufferRefs;
+	CMBlockBufferRef*	blockBufferRefs;
+	AudioBufferList*	bufferLists;
+	UInt32			bufferCount;
 
 } GMBAudioBufferStructs;
 
-//typedef struct
-//{
-//	char*								   buf;
-//	unsigned long long					  bytePos;
-//	unsigned long long					  totalBytesInBuffer;
-//	int									 numberOfConsumedBlocks;
-//	bool									isDone;
-//	AudioStreamBasicDescription			 streamFormat;
-//	TriggerFn*							  externalMessage;
-//} GMBAudioQueueUserData;
-
 typedef struct
 {
-	TPCircularBuffer							buf;
-	unsigned long long						  bytePos;
-	unsigned long long						  totalBytesInBuffer;
-	bool										isDone;
-	AudioStreamBasicDescription				 streamFormat;
+	TPCircularBuffer			buf;
+	unsigned long long			bytePos;
+	unsigned long long			totalBytesInBuffer;
+	bool					isDone;
+	AudioStreamBasicDescription		streamFormat;
 }GMBAudioQueueUserData;
 
 typedef struct GMBOutputBus
@@ -84,7 +73,6 @@ typedef struct GMBOutputBus
 	AUNode	  mixerNode;
 	AUNode	  limiterNode;
 	AUNode	  splitterNode;
-//	AUNode	  genericOutputNode;
 } GMBOutputBus;
 
 enum
