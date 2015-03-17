@@ -34,6 +34,7 @@
 		EAC620381AB7750A00247B51 /* HomemadeGraphTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC620371AB7750A00247B51 /* HomemadeGraphTestTests.m */; };
 		EAC620431AB7754E00247B51 /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC620421AB7754E00247B51 /* GraphViewController.m */; };
 		EAC620461AB7756F00247B51 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC620451AB7756F00247B51 /* GraphView.m */; };
+		EAF60DD01AB89507003FEC05 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF60DCF1AB89507003FEC05 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		EAC620421AB7754E00247B51 /* GraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		EAC620441AB7756F00247B51 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		EAC620451AB7756F00247B51 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
+		EAF60DCF1AB89507003FEC05 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAF60DD01AB89507003FEC05 /* AVFoundation.framework in Frameworks */,
 				EAC6200E1AB7750A00247B51 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,6 +154,7 @@
 		EAC6200C1AB7750A00247B51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EAF60DCF1AB89507003FEC05 /* AVFoundation.framework */,
 				EAC6200D1AB7750A00247B51 /* Cocoa.framework */,
 				EAC6202C1AB7750A00247B51 /* XCTest.framework */,
 				EAC6200F1AB7750A00247B51 /* Other Frameworks */,

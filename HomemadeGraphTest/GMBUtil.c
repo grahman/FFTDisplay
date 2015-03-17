@@ -19,3 +19,8 @@ int least(int a, int b)
 	return (b > a) ? a : b;
 }
 
+void die(const char *msg)
+{
+	printf("%s\n", msg);
+	exit(1);
+}

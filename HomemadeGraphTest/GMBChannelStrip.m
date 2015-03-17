@@ -15,12 +15,12 @@ static void * nChannelsChangedContext = &nChannelsChangedContext;
 
 
 
-OSStatus inputRenderNotifyPeakAmplitudeForBuffer (void						*inRefCon,
-						AudioUnitRenderActionFlags  *ioActionFlags,
+OSStatus inputRenderNotifyPeakAmplitudeForBuffer (void				*inRefCon,
+						AudioUnitRenderActionFlags 	*ioActionFlags,
 						const AudioTimeStamp		*inTimeStamp,
-						UInt32					  inBusNumber,
-						UInt32					  inNumberFrames,
-						AudioBufferList			 *ioData)
+						UInt32				inBusNumber,
+						UInt32				inNumberFrames,
+						AudioBufferList			*ioData)
 {
 	//This callback's purpose is to notify the queue when the AudioUnitRender call has completed.
 	float temp = 0;
@@ -46,7 +46,7 @@ OSStatus inputRenderNotifyPeakAmplitudeForBuffer (void						*inRefCon,
 			}
 			ud->peak = temp;
 		}
-		else													//Mono
+		else	//Mono
 		{
 			GMBAudioSample32BitFloat_t sample = 0;
 			for (int i=0; i < inNumberFrames; ++i)
@@ -60,12 +60,8 @@ OSStatus inputRenderNotifyPeakAmplitudeForBuffer (void						*inRefCon,
 			ud->peak = temp;
 		}
 	}
-
 	return noErr;
 }
-
-
-
 
 
 @implementation GMBChannelStrip

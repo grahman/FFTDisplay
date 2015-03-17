@@ -21,9 +21,9 @@
 	BOOL playing;
 	BOOL						_mediaReady;
 	BOOL						_wasPlayingBeforeChangingSeek;
-	dispatch_queue_t			backgroundQueue;
-	dispatch_queue_t			backgroundQueueSerial;
-	NSMutableArray*			 channelStripArray;
+	dispatch_queue_t				backgroundQueue;
+	dispatch_queue_t				backgroundQueueSerial;
+	NSMutableArray*			 		channelStripArray;
 	
 
 	NSTimer*					_bgTimerBasic;
@@ -33,21 +33,21 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
-@property GMBAVAssetParser*				 assetParser;
-@property GMBAVExporter*					exporter;
-@property GMBMixer*						 mixer;
-@property GMBAudioStreamBasicDescription*   asbd;
-@property AudioStreamBasicDescription*	  streamDscrptn;
-@property GMBAudioStreamBasicDescription*   dspASBD;
-@property GMBDelegate*					  del;
-@property GMBDelegate*					  stopPlayingDelegate;
-@property GMBDelegate*					  needsNewBufferDelegate;
-@property NSMutableArray*				   channelStripArray;
-@property NSString*						 openFileName;
-@property BOOL							  playing;
-@property BOOL							  initialized;
-@property (weak) IBOutlet NSButton		  *resetButton;
-@property CGPoint						   upperLeftCornerOfScreen;
-@property BOOL							  movieWindowCreated;
+@property GMBAVAssetParser*				assetParser;
+@property GMBAVExporter*				exporter;
+@property GMBMixer*					mixer;
+@property GMBAudioStreamBasicDescription*   		asbd;
+@property AudioStreamBasicDescription*	  		streamDscrptn;
+@property GMBAudioStreamBasicDescription*		dspASBD;
+@property GMBDelegate*					del;
+@property GMBDelegate*					stopPlayingDelegate;
+@property GMBDelegate*					needsNewBufferDelegate;
+@property NSMutableArray*				channelStripArray;
+@property NSString*					openFileName;
+@property BOOL						playing;
+@property BOOL						initialized;
+@property (weak) IBOutlet NSButton		 	*resetButton;
+@property CGPoint					upperLeftCornerOfScreen;
+@property BOOL						movieWindowCreated;
 
 @end

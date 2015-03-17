@@ -184,7 +184,6 @@ static OSStatus inputRenderCallback (
 @synthesize mixer;
 @synthesize assetParser;
 @synthesize audioConverter;
-//@synthesize sampleBufferDelegate;
 @synthesize needsNewSampleBuffer;
 @synthesize userDataStructs;
 @synthesize nSourceTracks;

@@ -66,11 +66,6 @@ static void* isCancelledContext = &isCancelledContext;
 	[self removeObserver:self forKeyPath:NSStringFromSelector(@selector(isCancelled))];
 }
 
-//-(void)cancel
-//{
-//	[super cancel];
-//	_done = YES;
-//}
 
 
 

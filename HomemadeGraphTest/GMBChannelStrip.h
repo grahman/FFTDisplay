@@ -16,21 +16,9 @@
 typedef struct
 {
 	float peak;
-
 }GMBLevelMeterUserData;
 
 typedef bool (*TriggerFn) ();		   //A generic pointer to a function that does something and returns a bool
-
-//typedef struct
-//{
-//	char*								   buf;
-//	unsigned long long					  bytePos;
-//	unsigned long long					  totalBytesInBuffer;
-//	int									 numberOfConsumedBlocks;
-//	bool									isDone;
-//	AudioStreamBasicDescription			 streamFormat;
-//	TriggerFn*							  externalMessage;
-//} GMBAudioQueueUserData;
 
 enum
 {

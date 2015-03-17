@@ -9,6 +9,7 @@
 static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalContext;
 
 #import "GMBAVAssetParser.h"
+#include "GMBUtil.h"
 
 @implementation GMBAVAssetParser
 
@@ -52,6 +53,8 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 	assetReaderAudioTrackOutputs = [[NSMutableArray alloc] init];
 	audioTracks = [asset tracksWithMediaType:AVMediaTypeAudio];
 	userDataStructs = calloc(audioTracks.count, sizeof(GMBAudioQueueUserData));
+	 if (!userDataStructs)
+		 die("GMBAVAssetParser.initWithFileURL: malloc failed for _leftoverBufferList\n");
 
 	assetReader = [[AVAssetReader alloc] initWithAsset:asset error:nil];
 	playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
@@ -61,9 +64,9 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 	int size = sizeof(GMBLeftoverBufferList);
 	int tracks = (int)audioTracks.count;
 	_leftoverBufferList = malloc(size * tracks);
-
-
-
+	if (!_leftoverBufferList)
+		die("GMBAVAssetParser.initWithFileURL: malloc failed for _leftoverBufferList\n");
+	 
 	int i = 0;
 	for (AVAssetTrack* auTrack in audioTracks)
 	{
@@ -122,6 +125,8 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 		while(!done)
 		{
 			int availableBytes = 0;
+			if (!&userDataStructs[i])
+				die("userDataStructs or associated buf is NULL");
 			void* head = TPCircularBufferHead(&userDataStructs[i].buf, &availableBytes);
 
 			//First we check to see if there is a leftover buffer list from the previous run.
@@ -147,7 +152,6 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 
 					CheckError(CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(bufferRef,  &bufSizeInFrames, &bufferList, sizeof(AudioBufferList), kCFAllocatorDefault, kCFAllocatorDefault, 0, &blockBufferRef), "Getting Audio Buffer List from avassettrackoutput");
 
-					//				memcpy(&(userDataStructs + i)->buf[bufWritePos], bufferList.mBuffers->mData, bufferList.mBuffers->mDataByteSize);
 					bufWritePos += bufferList.mBuffers->mDataByteSize;
 					if (availableBytes >= bufferList.mBuffers[0].mDataByteSize)
 					{
@@ -202,7 +206,7 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 
 
 	//****************************End For Looop******************************************/
-//	[self setValue:[NSNumber numberWithBool:YES] forKey:NSStringFromSelector(@selector(mediaIsReady))] ;
+	[self setValue:[NSNumber numberWithBool:YES] forKey:NSStringFromSelector(@selector(mediaIsReady))] ;
 	NSLog(@"AVAsset with URL \"%@\" has been parsed!", mediaItemPath_);
 	NSLog(@"GMBAVAssetParser has finished initializing, address %p", &self);
 	return self;
@@ -304,6 +308,7 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 	int i = 0;
 	if (!_audioBufferedAndReady)
 	{
+		NSLog(@"Audio not buffered yet");
 		return;
 	}
 	for (AVAssetTrack* auTrack in audioTracks)
@@ -367,7 +372,7 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 					freeLeftOverBuffer(&_leftoverBufferList[i]);
 
 			}
-												//If there is no leftover buffer list, control flow goes here.
+			//If there is no leftover buffer list, control flow goes here.
 			{
 				if (!_audioBufferedAndReady)
 				{
@@ -551,7 +556,7 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 
 	}
 
-//	[self setValue:[NSNumber numberWithBool:YES] forKey:NSStringFromSelector(@selector(mediaIsReady))];
+	[self setValue:[NSNumber numberWithBool:YES] forKey:NSStringFromSelector(@selector(mediaIsReady))];
 }
 
 //This does not deallocate the user data structs
@@ -619,8 +624,6 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 	userDataStructs = NULL;
 	mediaIsReady = nil;
 	assetReaderAudioTrackOutputs = nil;
-//	NSLog(@"AVAssetParser and asoociated userDataStructs have been freed");
-
 	NSLog(@"GMBAVAssetParser::dealloc: deallocated");
 
 }

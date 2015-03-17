@@ -11,3 +11,5 @@
 int greatest(int a, int b);
 
 int least(int a, int b);
+
+void die(const char *msg);
