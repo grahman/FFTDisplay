@@ -181,7 +181,16 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 				       } while (playing);
 				       NSLog(@"AppDelegate: Exiting copyNextBuffersLoop");
 			       });
-		
+		dispatch_async(backgroundQueue, ^
+			       {
+				       do
+				       {
+					       [fourierAnalyzer process];
+					       [self.window.contentView setNeedsDisplay:YES];
+					       usleep(80000);
+				       } while (playing);
+				       NSLog(@"AppDelegate: Exiting graph redraw loop");
+			       });
 	}
 }
 
@@ -237,7 +246,6 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 			
 		}
 	}
-	
 	if (context == transportHUDSeekPosChangedMouseUpContext)
 	{
 		_seekPosMouseUp = YES;
@@ -247,7 +255,6 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 				[self PlayAudioButtonClicked:nil];
 		
 	}
-	
 	if (context == transportHUDSeekPosChangedMouseDownContext)
 	{
 		_seekPosMouseDown = YES;
@@ -257,7 +264,6 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 			_wasPlayingBeforeChangingSeek = YES;
 			[self stopAudioQuietly];
 		}
-		
 	}
 	if (context == assetReaderDeallocContext)
 	{
@@ -276,9 +282,6 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 			
 		}
 	}
-	
-	
-	
 #pragma mark TRANSPORT_HUD_CHANGED
 	if (context == transportHUDSeekPosChangedContext)
 	{

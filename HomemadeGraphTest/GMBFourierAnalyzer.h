@@ -16,25 +16,29 @@
 
 struct fft_data {
 	float REX1[FFT_MAX_N];
-	float REX2[FFT_MAX_N];
+	float REX2[FFT_MAX_N];	/* For stereo support */
 	float IMX1[FFT_MAX_N];
-	float IMX2[FFT_MAX_N];
+	float IMX2[FFT_MAX_N];	/* For stereo support */
 	float MAG1[FFT_MAX_N];
 	float MAG2[FFT_MAX_N];
 	float PHA1[FFT_MAX_N];
 	float PHA2[FFT_MAX_N];
 	unsigned int N;
-	unsigned int pos;
+	unsigned int pos;	/* When pos == N, REX* is frequency domain data */
 };
+
+
 
 struct fft_data fftd;
 
 @interface GMBFourierAnalyzer : GMBObject
 {
-	
+	int _numChannels;
 }
 
+@property int	numChannels;
 -(id) initWithBins: (unsigned int)N;
+-(void) process;
 @end
 
 #endif

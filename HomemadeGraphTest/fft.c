@@ -158,7 +158,7 @@ void mag_phase_response(float *REX, float *IMX, float *MAG, float *PHA, unsigned
 	for (i = 0; i < N; ++i) {
 		RE2 = REX[i] * REX[i];
 		IM2 = IMX[i] * IMX[i];
-		MAG[i] = sqrt((double)(RE2 + IM2));
+		MAG[i] = 20 * log10(sqrt((double)(RE2 + IM2)));
 		PHA[i] = atan((double)(IMX[i] / REX[i]));
 	}
 }

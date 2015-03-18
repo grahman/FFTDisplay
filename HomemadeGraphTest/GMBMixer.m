@@ -71,10 +71,14 @@ static OSStatus inputRenderCallback (
 					bytesToCopy);
 #ifdef FFT
 				/* FFT Analysis */
-				if (n < (bytesToCopy / sizeof(float)))
+				if (n < (bytesToCopy / sizeof(float))) {
 					memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
-				else
+					fftd.pos += n;
+				}
+				else {
 					memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+					fftd.pos += (bytesToCopy / sizeof(float));
+				}
 				/* End FFT Analysis */
 #endif
 				TPCircularBufferConsume(&userData->buf, bytesToCopy);
@@ -103,10 +107,14 @@ static OSStatus inputRenderCallback (
 				memcpy(ioData->mBuffers[0].mData + pos, &sampleSum, sizeof(sampleSum));
 #ifdef FFT
 				/* FFT Analysis */
-				if (n < (bytesToCopy / sizeof(float)))
+				if (n < (bytesToCopy / sizeof(float))) {
 					memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
-				else
+					fftd.pos += n;
+				}
+				else {
 					memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+					fftd.pos += n;
+				}
 				/* End FFT Analysis */
 #endif
 				bytesRead += (sizeof(float) * 2);
@@ -146,8 +154,9 @@ static OSStatus inputRenderCallback (
 					memcpy(&ioData->mBuffers[0].mData[posL], &sample, sizeof(float));
 #ifdef FFT
 					/* FFT Analysis */
-					if (n)
+					if (n) {
 						fftd.REX1[fftd.pos] = sample;
+					}
 					/* End FFT Analysis */
 #endif
 					posL += sizeof(float);
@@ -190,10 +199,14 @@ static OSStatus inputRenderCallback (
 				memcpy(ioData->mBuffers[1].mData + bytesRead, tail, sizeof(float));
 #ifdef FFT
 				/* FFT Analysis */
-				if (n < (bytesToCopy / sizeof(float)))
+				if (n < (bytesToCopy / sizeof(float))) {
 					memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
-				else
+					fftd.pos += n;
+				}
+				else {
 					memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+					fftd.pos += (bytesToCopy / sizeof(float));
+				}
 				/* End FFT Analysis */
 #endif
 				TPCircularBufferConsume(&userData->buf, sizeof(float));

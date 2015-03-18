@@ -7,6 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "GMBFourierAnalyzer.h"
+
+/* Margins */
+const CGFloat marginX = 40;
+const CGFloat marginY = 40;
 
 @interface GraphView : NSView
 {
@@ -22,6 +27,7 @@
 	NSLock *_lock;
 	float *MAG;
 	float *PHA;
+	CGPoint _plot[FFT_MAX_N];
 }
 
 @property double width;

@@ -8,6 +8,8 @@
 
 #import "GraphView.h"
 
+extern struct fft_data fftd;
+
 @implementation GraphView
 
 @synthesize lock = _lock;
@@ -16,7 +18,7 @@
 {
 	self = [super initWithFrame:frame];
 	if (self) {
-		_W = _N = 1024;
+		_W = _N = 2048;
 		_H = 500.0;
 		_fs = 48000.0;
 		_binw = _fs / (float)_N;
@@ -25,8 +27,23 @@
 	return self;
 }
 
+-(void) computePoints
+{
+	int i;
+	CGFloat width = self.frame.size.width;
+	CGFloat b = (2 * width) / (float)fftd.N;
+	
+	for (i = 0; i < fftd.N / 2; ++i) {
+		_plot[i].x = marginX + (i * b);
+		_plot[i].y = marginY + fabs(fftd.MAG1[i]);
+	}
+}
+
 -(void) drawRect:(NSRect)dirtyRect
 {
+	int i;
+
+	CGMutablePathRef plot_iter = NULL;
 	CGContextRef ctx = [[NSGraphicsContext currentContext] graphicsPort];
 	CGMutablePathRef outerBarPathRef = CGPathCreateMutable();
 	CGPathMoveToPoint(outerBarPathRef, NULL, 0, 0);
@@ -42,27 +59,49 @@
 	
 	/* x axis */
 	CGPathMoveToPoint(grid, &CGAffineTransformIdentity,
-			  self.frame.origin.x + 40,
-			  40);
+			  self.frame.origin.x + marginX,
+			  marginY);
 	CGPathAddLineToPoint(grid,
 			     &CGAffineTransformIdentity,
 			     self.frame.size.width,
-			     40);
+			     marginY);
 	
 	/* y axis */
 	CGPathMoveToPoint(grid,
 			  &CGAffineTransformIdentity,
-			  40,
-			  40);
+			  marginX,
+			  marginY);
 	CGPathAddLineToPoint(grid,
 			     &CGAffineTransformIdentity,
-			     40,
+			     marginX,
 			     self.frame.size.height);
 	CGPathCloseSubpath(grid);
-	
+
+
+
 	CGContextAddPath(ctx, grid);
 	CGContextSetStrokeColorWithColor(ctx, [[NSColor blackColor] CGColor]);
 	CGContextStrokePath(ctx);
+	
+	/* Loop to create plot */
+	if (fftd.N - fftd.pos)
+		[self computePoints];
+	for (i = 0; i < fftd.N / 2; ++i) {
+		plot_iter = CGPathCreateMutable();
+		CGPathMoveToPoint(plot_iter,
+				  &CGAffineTransformIdentity,
+				  _plot[i].x,
+				  marginY);
+		CGPathAddLineToPoint(plot_iter,
+				     &CGAffineTransformIdentity,
+				     _plot[i].x,
+				     _plot[i].y);
+		CGPathCloseSubpath(plot_iter);
+		CGContextAddPath(ctx, plot_iter);
+		CGContextSetStrokeColorWithColor(ctx, [[NSColor redColor] CGColor]);
+		CGContextStrokePath(ctx);
+		plot_iter = NULL;
+	}
 	[self setNeedsDisplay:YES];
 }
 
