@@ -22,7 +22,7 @@
 		EA126AF91AB7C87B00B365AA /* GMBAVExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AF81AB7C87B00B365AA /* GMBAVExporter.m */; };
 		EA126AFC1AB7C8BE00B365AA /* MixerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AFB1AB7C8BE00B365AA /* MixerWindow.m */; };
 		EA586DA81AB8CF5F00FAA400 /* GMBFourierAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA586DA71AB8CF5F00FAA400 /* GMBFourierAnalyzer.m */; };
-		EA586DAB1AB8CF9600FAA400 /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = EA586DA91AB8CF9600FAA400 /* fft.c */; };
+		EA820EDF1AB94B6C000F5D5E /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = EA820EDD1AB94B6C000F5D5E /* fft.c */; };
 		EAC6200E1AB7750A00247B51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC6200D1AB7750A00247B51 /* Cocoa.framework */; };
 		EAC620181AB7750A00247B51 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EAC620161AB7750A00247B51 /* InfoPlist.strings */; };
 		EAC6201A1AB7750A00247B51 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC620191AB7750A00247B51 /* main.m */; };
@@ -81,8 +81,8 @@
 		EA126AFB1AB7C8BE00B365AA /* MixerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixerWindow.m; sourceTree = "<group>"; };
 		EA586DA61AB8CF5F00FAA400 /* GMBFourierAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBFourierAnalyzer.h; sourceTree = "<group>"; };
 		EA586DA71AB8CF5F00FAA400 /* GMBFourierAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBFourierAnalyzer.m; sourceTree = "<group>"; };
-		EA586DA91AB8CF9600FAA400 /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
-		EA586DAA1AB8CF9600FAA400 /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
+		EA820EDD1AB94B6C000F5D5E /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
+		EA820EDE1AB94B6C000F5D5E /* fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
 		EAC6200A1AB7750A00247B51 /* HomemadeGraphTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomemadeGraphTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC6200D1AB7750A00247B51 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EAC620101AB7750A00247B51 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -186,8 +186,8 @@
 				EAC620201AB7750A00247B51 /* AppDelegate.m */,
 				EA126ACF1AB7B55D00B365AA /* GMBAVAssetParser.h */,
 				EA126AD01AB7B55D00B365AA /* GMBAVAssetParser.m */,
-				EA586DAA1AB8CF9600FAA400 /* fft.h */,
-				EA586DA91AB8CF9600FAA400 /* fft.c */,
+				EA820EDD1AB94B6C000F5D5E /* fft.c */,
+				EA820EDE1AB94B6C000F5D5E /* fft.h */,
 				EA586DA61AB8CF5F00FAA400 /* GMBFourierAnalyzer.h */,
 				EA586DA71AB8CF5F00FAA400 /* GMBFourierAnalyzer.m */,
 				EA126AEB1AB7C69500B365AA /* GMBMixer.h */,
@@ -370,7 +370,7 @@
 				EA126AF01AB7C82300B365AA /* GMBDelegate.m in Sources */,
 				EAC620461AB7756F00247B51 /* GraphView.m in Sources */,
 				EA126ADE1AB7B5CC00B365AA /* TPCircularBuffer.c in Sources */,
-				EA586DAB1AB8CF9600FAA400 /* fft.c in Sources */,
+				EA820EDF1AB94B6C000F5D5E /* fft.c in Sources */,
 				EA126AED1AB7C69500B365AA /* GMBMixer.m in Sources */,
 				EA126AF31AB7C83800B365AA /* GMBChannelStrip.m in Sources */,
 				EA126ADB1AB7B5BB00B365AA /* CAUtilityFunctions.c in Sources */,

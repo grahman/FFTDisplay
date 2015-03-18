@@ -102,6 +102,7 @@ extern struct fft_data fftd;
 		CGContextStrokePath(ctx);
 		plot_iter = NULL;
 	}
+	fftd.processed = 0;
 	[self setNeedsDisplay:YES];
 }
 

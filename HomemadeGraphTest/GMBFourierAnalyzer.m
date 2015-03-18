@@ -18,6 +18,7 @@
 	if (self) {
 		fftd.N = N;
 		fftd.pos = 0;
+		fftd.processed = 0;
 		_numChannels = 1;
 	}
 	return self;
@@ -27,9 +28,16 @@
 {
 	int ready;
 	
-	ready = (fftd.pos == fftd.N) ? 1 : 0;
+	/* This function only proceeds if the GMBAVAssetParser has
+	 * filled up the fft buffer, <em>and</em> it has not been
+	 * processed yet
+	 */
+	ready = ((fftd.pos == fftd.N) ? 1 : 0) && !fftd.processed;
 	switch(ready) {
 		case 1:
+			/* Apply a hann window to hopefully
+			 * reduce aliasing, etc */
+			hann(fftd.REX1, fftd.IMX1, fftd.N);
 			mag_phase_response(fftd.REX1,
 					   fftd.IMX1,
 					   fftd.MAG1,
@@ -40,6 +48,7 @@
 			memset(fftd.IMX1, 0, fftd.N * sizeof(float));
 			memset(fftd.IMX2, 0, fftd.N * sizeof(float));
 			fftd.pos = 0;
+			fftd.processed = 1;
 			break;
 		case 0:
 			break;

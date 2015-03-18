@@ -25,6 +25,10 @@ struct fft_data {
 	float PHA2[FFT_MAX_N];
 	unsigned int N;
 	unsigned int pos;	/* When pos == N, REX* is frequency domain data */
+	int processed;		/* 0 = has not had hann window or mag_phase_response
+				 * applied to it yet
+				 * 1 = otherwise
+				 */
 };
 
 

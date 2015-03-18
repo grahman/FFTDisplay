@@ -158,8 +158,20 @@ void mag_phase_response(float *REX, float *IMX, float *MAG, float *PHA, unsigned
 	for (i = 0; i < N; ++i) {
 		RE2 = REX[i] * REX[i];
 		IM2 = IMX[i] * IMX[i];
-		MAG[i] = 20 * log10(sqrt((double)(RE2 + IM2)));
+		MAG[i] = 20 * log10f(sqrt((double)(RE2 + IM2)));
 		PHA[i] = atan((double)(IMX[i] / REX[i]));
 	}
 }
+
+void hann(float *REX, float *IMX, unsigned int N)
+{
+	int i;
+
+	for (i = 0; i < N; ++i) {
+		REX[i] *= 0.5 * (1 - cos(2 * M_PI * i / (float)(N - 1)));
+		IMX[i] *= 0.5 * (1 - cos(2 * M_PI * i / (float)(N - 1)));
+	}
+}
+
+
 
