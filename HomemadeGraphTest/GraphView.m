@@ -35,7 +35,7 @@ extern struct fft_data fftd;
 	
 	for (i = 0; i < fftd.N / 2; ++i) {
 		_plot[i].x = marginX + (i * b);
-		_plot[i].y = marginY + fabs(fftd.MAG1[i]);
+		_plot[i].y =  marginY + fftd.MAG1[i] + 110;
 	}
 }
 

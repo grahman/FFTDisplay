@@ -154,7 +154,7 @@ void mag_phase_response(float *REX, float *IMX, float *MAG, float *PHA, unsigned
 {
 	float RE2, IM2;
 	int i;
-
+	
 	for (i = 0; i < N; ++i) {
 		RE2 = REX[i] * REX[i];
 		IM2 = IMX[i] * IMX[i];

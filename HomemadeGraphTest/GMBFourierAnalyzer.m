@@ -38,6 +38,7 @@
 			/* Apply a hann window to hopefully
 			 * reduce aliasing, etc */
 			hann(fftd.REX1, fftd.IMX1, fftd.N);
+			fft(fftd.REX1, fftd.IMX1, fftd.N);
 			mag_phase_response(fftd.REX1,
 					   fftd.IMX1,
 					   fftd.MAG1,
