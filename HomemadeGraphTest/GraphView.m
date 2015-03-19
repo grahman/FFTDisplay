@@ -31,13 +31,12 @@ extern struct fft_data fftd;
 {
 	int i;
 	CGFloat width = self.frame.size.width;
-	CGFloat b = (2 * width) / (float)fftd.N;
 	
 	for (i = 0; i < fftd.N / 2; ++i) {
-//		_plot[i].x = marginX + (i * b);
-//		_plot[i].x = marginX + log(i * b);
 		_plot[i].x = marginX + (.144 * width * log(i + 1));
-		_plot[i].y =  marginY + fftd.MAG1[i] + 110;
+		_plot[i].y =  (((fftd.MAG1[i] / 80.0)) * (self.frame.size.height - marginY)) + marginY;
+		if (_plot[i].y < marginY)
+			_plot[i].y = marginY;
 	}
 }
 
@@ -107,27 +106,9 @@ extern struct fft_data fftd;
 	CGContextAddPath(ctx, plot_iter);
 	CGContextSetStrokeColorWithColor(ctx, [[NSColor redColor] CGColor]);
 	CGContextStrokePath(ctx);
+	CGPathRelease(plot_iter);
 	plot_iter = NULL;
 	
-//	/* Loop to create plot */
-//	if (fftd.N - fftd.pos)
-//		[self computePoints];
-//	for (i = 0; i < fftd.N / 2; ++i) {
-//		plot_iter = CGPathCreateMutable();
-//		CGPathMoveToPoint(plot_iter,
-//				  &CGAffineTransformIdentity,
-//				  _plot[i].x,
-//				  marginY);
-//		CGPathAddLineToPoint(plot_iter,
-//				     &CGAffineTransformIdentity,
-//				     _plot[i].x,
-//				     _plot[i].y);
-//		CGPathCloseSubpath(plot_iter);
-//		CGContextAddPath(ctx, plot_iter);
-//		CGContextSetStrokeColorWithColor(ctx, [[NSColor redColor] CGColor]);
-//		CGContextStrokePath(ctx);
-//		plot_iter = NULL;
-//	}
 
 	fftd.processed = 0;
 	[self setNeedsDisplay:YES];
