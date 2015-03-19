@@ -11,6 +11,8 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 #import "GMBAVAssetParser.h"
 #include "GMBUtil.h"
 
+extern struct fft_data fftd;
+
 @implementation GMBAVAssetParser
 
 @synthesize URLAsset;
@@ -88,6 +90,12 @@ static void* mediaStatusChangedInternalContext = &mediaStatusChangedInternalCont
 					true,
 					false,
 					(origASBD->mChannelsPerFrame > 1) ? false : true);
+#ifdef FFT
+		/* FFT processing - set the sample rate */
+		fftd.Fs = destASBD.mSampleRate;
+		
+		/* End FFT processing */
+#endif
 
 		(userDataStructs + i)->streamFormat = destASBD;
 		TPCircularBufferInit(&userDataStructs[i].buf, CIRCULARBUFFERLISTSIZE );		 //This gives us about 15 seconds of mono audio at 48000khz total in the buffer, and is divisible by the average size of an audio buffer list read out of an avassettrackoutput.

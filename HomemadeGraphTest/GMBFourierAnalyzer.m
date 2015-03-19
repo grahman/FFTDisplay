@@ -19,6 +19,7 @@
 		fftd.N = N;
 		fftd.pos = 0;
 		fftd.processed = 0;
+		fftd.Fs = 44100;	/* Default */
 		_numChannels = 1;
 	}
 	return self;

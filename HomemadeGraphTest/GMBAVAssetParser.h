@@ -19,6 +19,7 @@
 #import "GMBUtil.h"
 #import "CAUtilityFunctions.h"
 #import "GMBObject.h"
+#import "GMBFourierAnalyzer.h"
 
 #ifndef CIRCULARBUFFERLISTSIZE
 #define CIRCULARBUFFERLISTSIZE 2883584

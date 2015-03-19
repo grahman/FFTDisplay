@@ -23,6 +23,7 @@ struct fft_data {
 	float MAG2[FFT_MAX_N];
 	float PHA1[FFT_MAX_N];
 	float PHA2[FFT_MAX_N];
+	float Fs;		/* Sample rate */
 	unsigned int N;
 	unsigned int pos;	/* When pos == N, REX* is frequency domain data */
 	int processed;		/* 0 = has not had hann window or mag_phase_response

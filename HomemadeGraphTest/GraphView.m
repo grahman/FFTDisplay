@@ -34,7 +34,9 @@ extern struct fft_data fftd;
 	CGFloat b = (2 * width) / (float)fftd.N;
 	
 	for (i = 0; i < fftd.N / 2; ++i) {
-		_plot[i].x = marginX + (i * b);
+//		_plot[i].x = marginX + (i * b);
+//		_plot[i].x = marginX + log(i * b);
+		_plot[i].x = marginX + (.144 * width * log(i + 1));
 		_plot[i].y =  marginY + fftd.MAG1[i] + 110;
 	}
 }
@@ -102,6 +104,8 @@ extern struct fft_data fftd;
 		CGContextStrokePath(ctx);
 		plot_iter = NULL;
 	}
+	
+	
 	fftd.processed = 0;
 	[self setNeedsDisplay:YES];
 }
