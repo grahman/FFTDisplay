@@ -9,9 +9,15 @@
 #import <Cocoa/Cocoa.h>
 #import "GMBFourierAnalyzer.h"
 
-/* Margins */
-const CGFloat marginX = 40;
-const CGFloat marginY = 40;
+
+#ifndef marginX
+#define marginX 60
+#endif
+
+#ifndef marginY
+#define marginY 60
+#endif
+
 
 @interface GraphView : NSView
 {
@@ -28,6 +34,13 @@ const CGFloat marginY = 40;
 	float *MAG;
 	float *PHA;
 	CGPoint _plot[FFT_MAX_N];
+	CGFloat _special[10];	/* Stores points for 20Hz, 50Hz, 100Hz,..20kHz */
+	CGFloat spoints[10];	/* _special after log transform */
+	NSArray *labels;
+	NSTextView *tlabels[10];
+	NSTextView *dblabels[5];
+	NSArray *dbs;
+	CGFloat dbpoints[5];
 }
 
 @property double width;

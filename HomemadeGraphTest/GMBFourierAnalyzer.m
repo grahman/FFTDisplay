@@ -36,8 +36,6 @@
 	ready = ((fftd.pos == fftd.N) ? 1 : 0) && !fftd.processed;
 	switch(ready) {
 		case 1:
-			/* Apply a hann window to hopefully
-			 * reduce aliasing, etc */
 			hann(fftd.REX1, fftd.IMX1, fftd.N);
 			fft(fftd.REX1, fftd.IMX1, fftd.N);
 			mag_phase_response(fftd.REX1,

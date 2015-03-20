@@ -35,6 +35,7 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 @synthesize upperLeftCornerOfScreen;
 @synthesize movieWindowCreated;
 @synthesize fourierAnalyzer;
+@synthesize graphView;
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -96,6 +97,10 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 	}
 	initialized = YES;
 	fourierAnalyzer = [[GMBFourierAnalyzer alloc] initWithBins:2048];
+	
+	/* Reload the view to initialize properly */
+	graphView = [[GraphView alloc] initWithFrame:self.window.frame];
+	[self.window setContentView:graphView];
 }
 
 - (IBAction)openMenuClicked:(id)sender

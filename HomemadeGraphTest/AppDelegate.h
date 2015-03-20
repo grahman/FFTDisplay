@@ -15,7 +15,9 @@
 #import "GMBChannelStrip.h"
 #import "MixerWindow.h"
 #import "GMBAVExporter.h"
+
 #import "GMBFourierAnalyzer.h"
+#import "GraphView.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
@@ -51,6 +53,7 @@
 @property CGPoint					upperLeftCornerOfScreen;
 @property BOOL						movieWindowCreated;
 @property GMBFourierAnalyzer* 				fourierAnalyzer;
+@property GraphView*					graphView;
 
 
 @end
