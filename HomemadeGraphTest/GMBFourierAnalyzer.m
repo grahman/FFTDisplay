@@ -10,7 +10,6 @@
 
 
 @implementation GMBFourierAnalyzer
-//@synthesize numChannels;
 
 -(id) initWithBins: (unsigned int)N
 {

@@ -608,6 +608,25 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Player" id="8VP-5X-Y6e">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Player" id="f63-IL-WHy">
+                        <items>
+                            <menuItem title="Play" id="ceo-Nd-HKG">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="PlayAudioButtonClicked:" target="Voe-Tx-rLC" id="bJi-ZD-zlW"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Stop" id="8HV-t4-sKf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="stopAudio:" target="Voe-Tx-rLC" id="eoU-5T-ySx"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="View" id="H8h-7b-M4v">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">

@@ -17,7 +17,6 @@ extern struct fft_data fftd;
 
 @synthesize URLAsset;
 @synthesize asset;
-//@synthesize audioAssetReader;
 @synthesize audioAssetReaders;
 @synthesize assetWriter;
 @synthesize player;
@@ -57,7 +56,6 @@ extern struct fft_data fftd;
 	 if (!userDataStructs)
 		 die("GMBAVAssetParser.initWithFileURL: malloc failed for _leftoverBufferList\n");
 
-//	assetReader = [[AVAssetReader alloc] initWithAsset:asset error:nil];
 	playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
 	player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
 	player.volume = 0;
@@ -498,7 +496,6 @@ extern struct fft_data fftd;
 	assetReaderAudioTrackOutputs = [[NSMutableArray alloc] init];
 
 	NSError* err;
-//	audioAssetReader = [[AVAssetReader alloc] initWithAsset:asset error:&err];
 
 	int i = 0;
 	for (AVAssetTrack* auTrack in audioTracks)

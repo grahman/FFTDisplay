@@ -199,8 +199,6 @@ extern struct fft_data fftd;
 	CGPathRelease(specialFrequencies);
 	CGPathRelease(outerBarPathRef);
 	
-	
-
 	fftd.processed = 0;
 	[self setNeedsDisplay:YES];
 }

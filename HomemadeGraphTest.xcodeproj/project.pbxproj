@@ -20,7 +20,6 @@
 		EA126AF31AB7C83800B365AA /* GMBChannelStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AF21AB7C83800B365AA /* GMBChannelStrip.m */; };
 		EA126AF61AB7C84700B365AA /* GMBBackgroundTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AF51AB7C84700B365AA /* GMBBackgroundTimer.m */; };
 		EA126AF91AB7C87B00B365AA /* GMBAVExporter.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AF81AB7C87B00B365AA /* GMBAVExporter.m */; };
-		EA126AFC1AB7C8BE00B365AA /* MixerWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = EA126AFB1AB7C8BE00B365AA /* MixerWindow.m */; };
 		EA586DA81AB8CF5F00FAA400 /* GMBFourierAnalyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = EA586DA71AB8CF5F00FAA400 /* GMBFourierAnalyzer.m */; };
 		EA820EDF1AB94B6C000F5D5E /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = EA820EDD1AB94B6C000F5D5E /* fft.c */; };
 		EAC6200E1AB7750A00247B51 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC6200D1AB7750A00247B51 /* Cocoa.framework */; };
@@ -77,8 +76,6 @@
 		EA126AF51AB7C84700B365AA /* GMBBackgroundTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBBackgroundTimer.m; sourceTree = "<group>"; };
 		EA126AF71AB7C87B00B365AA /* GMBAVExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBAVExporter.h; sourceTree = "<group>"; };
 		EA126AF81AB7C87B00B365AA /* GMBAVExporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBAVExporter.m; sourceTree = "<group>"; };
-		EA126AFA1AB7C8BE00B365AA /* MixerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixerWindow.h; sourceTree = "<group>"; };
-		EA126AFB1AB7C8BE00B365AA /* MixerWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixerWindow.m; sourceTree = "<group>"; };
 		EA586DA61AB8CF5F00FAA400 /* GMBFourierAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMBFourierAnalyzer.h; sourceTree = "<group>"; };
 		EA586DA71AB8CF5F00FAA400 /* GMBFourierAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMBFourierAnalyzer.m; sourceTree = "<group>"; };
 		EA820EDD1AB94B6C000F5D5E /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
@@ -210,8 +207,6 @@
 				EA126AEE1AB7C82300B365AA /* GMBDelegate.h */,
 				EA126AEF1AB7C82300B365AA /* GMBDelegate.m */,
 				EA126AD91AB7B5BB00B365AA /* CAUtilityFunctions.c */,
-				EA126AFA1AB7C8BE00B365AA /* MixerWindow.h */,
-				EA126AFB1AB7C8BE00B365AA /* MixerWindow.m */,
 				EA126ADA1AB7B5BB00B365AA /* CAUtilityFunctions.h */,
 				EA126ADF1AB7B5E400B365AA /* GMBAudioStreamBasicDescription.h */,
 				EA126AE01AB7B5E400B365AA /* GMBAudioStreamBasicDescription.m */,
@@ -359,7 +354,6 @@
 				EA126AE11AB7B5E400B365AA /* GMBAudioStreamBasicDescription.m in Sources */,
 				EA126AE81AB7B6DD00B365AA /* GMBAUGraph.m in Sources */,
 				EA126AD71AB7B59400B365AA /* GMBAudioChannel.m in Sources */,
-				EA126AFC1AB7C8BE00B365AA /* MixerWindow.m in Sources */,
 				EA126AF91AB7C87B00B365AA /* GMBAVExporter.m in Sources */,
 				EAC620211AB7750A00247B51 /* AppDelegate.m in Sources */,
 				EAC6201A1AB7750A00247B51 /* main.m in Sources */,

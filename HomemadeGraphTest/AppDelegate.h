@@ -13,7 +13,6 @@
 #import "GMBDelegate.h"
 #import "CAUtilityFunctions.h"
 #import "GMBChannelStrip.h"
-#import "MixerWindow.h"
 #import "GMBAVExporter.h"
 
 #import "GMBFourierAnalyzer.h"

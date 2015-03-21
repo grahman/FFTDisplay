@@ -65,8 +65,6 @@
 -(BOOL) useDefaultOutput;
 
 
-//-(BOOL) stopAUGraph;
-
 @end
 
 

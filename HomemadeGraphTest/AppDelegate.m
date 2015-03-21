@@ -12,7 +12,6 @@ static void* mixerPlayPauseContext = &mixerPlayPauseContext;
 static void* mixerResetButtonContext = &mixerResetButtonContext;
 static void* movieWindowSpacebarPressedContext = &movieWindowSpacebarPressedContext;
 static void* normalizeCheckboxChangedContext = &normalizeCheckboxChangedContext;
-static void* assetReaderDeallocContext = &assetReaderDeallocContext;
 static void* transportHUDSeekPosChangedContext = &transportHUDSeekPosChangedContext;
 static void* transportHUDSeekPosChangedMouseUpContext = &transportHUDSeekPosChangedMouseUpContext;
 static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosChangedMouseDownContext;
@@ -66,11 +65,8 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 	{
 		mixer = [[GMBMixer alloc] init];
 	}
-	
-//	if (!assetParser)
-//		assetParser = [[GMBAVAssetParser alloc] init];
-	backgroundQueue = dispatch_queue_create("backgroundQueue", DISPATCH_QUEUE_CONCURRENT);
-	backgroundQueueSerial = dispatch_queue_create("backgroundQueueSerial", DISPATCH_QUEUE_SERIAL);
+
+	[self resetBackgroundQueues];
 	
 	_mediaReady = NO;
 	__weak typeof(self) weakSelf = self;
@@ -81,20 +77,6 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 	playing = NO;
 	[[self window] setDefaultButtonCell:nil];
 	
-		
-	//If the the  app was opened by dragging a movie to the dock tile, go ahead and open the file.
-	if (openFileName)
-	{
-		if (assetParser.asset)
-		{
-			
-		}
-		else
-		{
-//			assetParser = [assetParser initWithFileURL:openFileName];
-		}
-		
-	}
 	initialized = YES;
 	fourierAnalyzer = [[GMBFourierAnalyzer alloc] initWithBins:2048];
 	
@@ -108,8 +90,6 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 	/**
 	 The following code snippet was obtained from http://stackoverflow.com/questions/1640419/open-file-dialog-box
 	 **/
-	
-//	NSString *openFileName = nil;
 	
 	// Create the File Open Dialog class.
 	NSOpenPanel* openDlg = [NSOpenPanel openPanel];
@@ -138,6 +118,11 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		{
 			if (playing)
 				[self stopAudioQuietly];
+			/* I think the the old user data structs may still be getting called by the mixer,
+			 * so make a brand new mixer to play it safe for now. If this fixes issue, maybe
+			 * look into more efficient solution (like unregister old callbacks before
+			 * deallocating them */
+			mixer = [[GMBMixer alloc] init];
 			[fourierAnalyzer reset];
 			[assetParser removeObserver:self forKeyPath:NSStringFromSelector(@selector(mediaIsReady))];
 			assetParser = [[GMBAVAssetParser alloc] initWithFileURL:openFileName];
@@ -153,7 +138,6 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 				[assetParser removeObserver:self forKeyPath:NSStringFromSelector(@selector(mediaIsReady))];
 			}
 			assetParser = [[GMBAVAssetParser alloc] initWithFileURL:openFileName];
-//			assetParser = [assetParser initWithFileURL:openFileName];
 			[assetParser addObserver:self
 				forKeyPath:NSStringFromSelector(@selector(mediaIsReady))
 				options:NSKeyValueObservingOptionNew
@@ -166,11 +150,17 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		}
 		
 		openDlg = nil;
-//		[self applicationDidFinishLaunching:nil];
 	}
 }
 
+-(void) resetBackgroundQueues
+{
+	backgroundQueue = dispatch_queue_create("backgroundQueue", DISPATCH_QUEUE_CONCURRENT);
+	backgroundQueueSerial = dispatch_queue_create("backgroundQueueSerial", DISPATCH_QUEUE_SERIAL);
+}
 - (IBAction)PlayAudioButtonClicked:(id)sender {
+	if (playing)
+		return;
 	_wasPlayingBeforeChangingSeek = YES;
 	dispatch_async(backgroundQueue, ^{
 		while (!assetParser.audioBufferedAndReady);
@@ -214,25 +204,8 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 	
 	[mixer registerCallbacks];
 	
-	//Now set up the mixer window
-	if (!channelStripArray)
-		channelStripArray = [[NSMutableArray alloc] init];
-	
-	for (int i=0; i < assetParser.audioTracks.count; ++i)
-	{
-		
-		if (i + 1 > channelStripArray.count)
-		{
-			GMBChannelStrip* chanStrip = [[GMBChannelStrip alloc] initWithChannelNum:[NSNumber numberWithInt:i]
-									      withUserDataStruct:&mixer.userDataStructs[i]
-									      withOutputBusArray:&mixer.graph.outputBusArray[i]
-										       withGraph:mixer.graph];
-			[channelStripArray addObject:chanStrip];
-			
-		}
-	}
-	if (_wasPlayingBeforeChangingSeek && _seekPosMouseUp)
-		[self PlayAudioButtonClicked:nil];
+//	if (_wasPlayingBeforeChangingSeek && _seekPosMouseUp)
+//		[self PlayAudioButtonClicked:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -253,7 +226,8 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		{
 			if ([assetParser.mediaIsReady intValue] == [[NSNumber numberWithBool:YES]intValue])
 			{
-				[self setupMixer];
+//				[self setupMixer];
+//				[self PlayAudioButtonClicked:nil];
 			}
 			
 		}
@@ -277,23 +251,6 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 			[self stopAudioQuietly];
 		}
 	}
-	if (context == assetReaderDeallocContext)
-	{
-//		if ([change valueForKey:NSKeyValueChangeOldKey] == assetParser.assetReader)
-//		{
-//			[assetParser removeObserver:self forKeyPath:NSStringFromSelector(@selector(assetReader))];
-//			[assetParser.assetReader removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
-//			if (del)
-//			{
-//				[assetParser removeObserver:del forKeyPath:NSStringFromSelector(@selector(status))];
-//			}
-//			
-//		}
-		if ([change valueForKey:NSKeyValueChangeNewKey])
-		{
-			
-		}
-	}
 #pragma mark TRANSPORT_HUD_CHANGED
 	if (context == transportHUDSeekPosChangedContext)
 	{
@@ -307,6 +264,11 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		//Now do the same for the audio.
 		[assetParser seekToTime:seekToTimeAsCMTime];
 	}
+}
+
+-(IBAction)stopAudio:(id)sender
+{
+	[self stopAudioQuietly];
 }
 
 -(void) stopAudioQuietly

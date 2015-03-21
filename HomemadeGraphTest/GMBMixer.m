@@ -71,14 +71,17 @@ static OSStatus inputRenderCallback (
 					bytesToCopy);
 #ifdef FFT
 				/* FFT Analysis */
-				if (n < (bytesToCopy / sizeof(float))) {
-					memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
-					fftd.pos += n;
+				if (n) {
+					if (n < (bytesToCopy / sizeof(float))) {
+						memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
+						fftd.pos += n;
+					}
+					else {
+						memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+						fftd.pos += (bytesToCopy / sizeof(float));
+					}
 				}
-				else {
-					memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
-					fftd.pos += (bytesToCopy / sizeof(float));
-				}
+				
 				/* End FFT Analysis */
 #endif
 				TPCircularBufferConsume(&userData->buf, bytesToCopy);
@@ -107,14 +110,17 @@ static OSStatus inputRenderCallback (
 				memcpy(ioData->mBuffers[0].mData + pos, &sampleSum, sizeof(sampleSum));
 #ifdef FFT
 				/* FFT Analysis */
-				if (n < (bytesToCopy / sizeof(float))) {
-					memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
-					fftd.pos += n;
+				if (n) {
+					if (n < (bytesToCopy / sizeof(float))) {
+						memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
+						fftd.pos += n;
+					}
+					else {
+						memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+						fftd.pos += n;
+					}
 				}
-				else {
-					memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
-					fftd.pos += n;
-				}
+				
 				/* End FFT Analysis */
 #endif
 				bytesRead += (sizeof(float) * 2);
@@ -174,7 +180,7 @@ static OSStatus inputRenderCallback (
 					if (n) {
 						fftd.REX2[fftd.pos] = sample;
 						fftd.pos++;
-						++n;
+						--n;
 					}
 					
 					/* End FFT Analysis */
@@ -281,7 +287,6 @@ static OSStatus inputRenderCallback (
 
 -(void)stopGraph
 {
-//	printf("Stopping the graph\n");
 	CheckError(AUGraphStop(graph.graph), "Stopping the audio graph");
 }
 
@@ -291,7 +296,7 @@ static OSStatus inputRenderCallback (
 	for (int i = 0; i < [nSourceTracks intValue]; ++i)
 	{
 		renderCallbackStruct.inputProc = inputRenderCallback;
-		renderCallbackStruct.inputProcRefCon = (void*)&userDataStructs[i];						  //Passing the first audio channel for testing purposes
+		renderCallbackStruct.inputProcRefCon = (void*)&userDataStructs[i];	//Passing the first audio channel for testing purposes
 		CheckError(AUGraphSetNodeInputCallback(graph.graph, graph.outputBusArray[i].converter_preNode, 0, &renderCallbackStruct), "Registering input callback");
 	}
    }
