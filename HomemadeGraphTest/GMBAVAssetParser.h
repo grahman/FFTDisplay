@@ -43,8 +43,7 @@ typedef struct
 
 @property AVURLAsset*				URLAsset;
 @property AVAsset*				asset;
-@property AVAssetReader*			assetReader;
-@property AVAssetReader*			audioAssetReader;					   //Singular!
+//@property AVAssetReader*			audioAssetReader;					   //Singular!
 @property NSMutableArray*			audioAssetReaders;					  //Contains AVAssetReaders for the audio tracks.
 @property AVAssetWriter*			assetWriter;
 @property AVPlayerItem*				playerItem;

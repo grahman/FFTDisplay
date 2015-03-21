@@ -51,9 +51,7 @@ enum ChannelType
 @property GMBAudioStreamBasicDescription*	asbd;
 @property NSUInteger						mixerInputsUsed;
 @property BOOL							  isProcessingGraph;
-@property (strong)GMBAVAssetParser*				 assetParser;
 @property AudioConverterRef*				audioConverter;
-//@property GMBSampleBufferDelegate*		  sampleBufferDelegate;
 @property BOOL							  needsNewSampleBuffer;
 @property BOOL							  hasMoreSampleBuffersToProvide;
 @property GMBAudioQueueUserData*			userDataStructs;

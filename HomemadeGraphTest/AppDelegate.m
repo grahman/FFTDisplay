@@ -67,8 +67,8 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		mixer = [[GMBMixer alloc] init];
 	}
 	
-	if (!assetParser)
-		assetParser = [[GMBAVAssetParser alloc] init];
+//	if (!assetParser)
+//		assetParser = [[GMBAVAssetParser alloc] init];
 	backgroundQueue = dispatch_queue_create("backgroundQueue", DISPATCH_QUEUE_CONCURRENT);
 	backgroundQueueSerial = dispatch_queue_create("backgroundQueueSerial", DISPATCH_QUEUE_SERIAL);
 	
@@ -91,7 +91,7 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		}
 		else
 		{
-			assetParser = [assetParser initWithFileURL:openFileName];
+//			assetParser = [assetParser initWithFileURL:openFileName];
 		}
 		
 	}
@@ -136,7 +136,10 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		
 		if (assetParser && assetParser.asset)
 		{
-			[assetParser.assetReader removeObserver:self forKeyPath:@"status"];
+			if (playing)
+				[self stopAudioQuietly];
+			[fourierAnalyzer reset];
+			[assetParser removeObserver:self forKeyPath:NSStringFromSelector(@selector(mediaIsReady))];
 			assetParser = [[GMBAVAssetParser alloc] initWithFileURL:openFileName];
 			[assetParser addObserver:self
 				forKeyPath:NSStringFromSelector(@selector(mediaIsReady))
@@ -146,7 +149,11 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		}
 		else
 		{
-			assetParser = [assetParser initWithFileURL:openFileName];
+			if (assetParser) {
+				[assetParser removeObserver:self forKeyPath:NSStringFromSelector(@selector(mediaIsReady))];
+			}
+			assetParser = [[GMBAVAssetParser alloc] initWithFileURL:openFileName];
+//			assetParser = [assetParser initWithFileURL:openFileName];
 			[assetParser addObserver:self
 				forKeyPath:NSStringFromSelector(@selector(mediaIsReady))
 				options:NSKeyValueObservingOptionNew
@@ -272,16 +279,16 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 	}
 	if (context == assetReaderDeallocContext)
 	{
-		if ([change valueForKey:NSKeyValueChangeOldKey] == assetParser.assetReader)
-		{
-			[assetParser removeObserver:self forKeyPath:NSStringFromSelector(@selector(assetReader))];
-			[assetParser.assetReader removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
-			if (del)
-			{
-				[assetParser removeObserver:del forKeyPath:NSStringFromSelector(@selector(status))];
-			}
-			
-		}
+//		if ([change valueForKey:NSKeyValueChangeOldKey] == assetParser.assetReader)
+//		{
+//			[assetParser removeObserver:self forKeyPath:NSStringFromSelector(@selector(assetReader))];
+//			[assetParser.assetReader removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
+//			if (del)
+//			{
+//				[assetParser removeObserver:del forKeyPath:NSStringFromSelector(@selector(status))];
+//			}
+//			
+//		}
 		if ([change valueForKey:NSKeyValueChangeNewKey])
 		{
 			

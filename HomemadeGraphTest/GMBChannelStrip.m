@@ -128,20 +128,16 @@ OSStatus inputRenderNotifyPeakAmplitudeForBuffer (void				*inRefCon,
 
 	bgTimer = [[GMBBackgroundTimer alloc] initWithSelector:@selector(updateLevelMeterValue:)
 											andTarget:self];
-	dispatch_queue_t backgroundQueue = dispatch_queue_create("inputSerialDispatchQueue", DISPATCH_QUEUE_SERIAL);
-	dispatch_async(backgroundQueue, ^
-				{
-					[bgTimer main];
-				});
+	
+	/* Uncomment the following for a mixer window */
+//	dispatch_queue_t backgroundQueue = dispatch_queue_create("inputSerialDispatchQueue", DISPATCH_QUEUE_SERIAL);
+//	dispatch_async(backgroundQueue, ^
+//				{
+//					[bgTimer main];
+//				});
+	
+	/********************End Mixer window timer code ***********************/
 
-//	levelMeterTimer = [[NSTimer alloc] initWithFireDate:[NSDate date]
-//											   interval:0.01
-//												 target:self
-//											   selector:@selector(updateLevelMeterValue:)
-//											   userInfo:nil
-//												repeats:YES];
-//	NSRunLoop *runner = [NSRunLoop currentRunLoop];
-//	[runner addTimer: levelMeterTimer forMode: NSDefaultRunLoopMode];
 
 	return self;
 }

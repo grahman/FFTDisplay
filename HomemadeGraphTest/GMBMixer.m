@@ -236,7 +236,6 @@ static OSStatus inputRenderCallback (
 @synthesize mixerNode;
 @synthesize isProcessingGraph;
 @synthesize mixer;
-@synthesize assetParser;
 @synthesize audioConverter;
 @synthesize needsNewSampleBuffer;
 @synthesize userDataStructs;

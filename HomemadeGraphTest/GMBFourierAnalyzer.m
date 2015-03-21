@@ -68,6 +68,13 @@
 	return _numChannels;
 }
 
-
+-(void) reset
+{
+	unsigned int tempN = fftd.N;
+	
+	memset(&fftd, 0, sizeof(fftd));
+	fftd.Fs = 44100;
+	fftd.N = tempN;
+}
 
 @end

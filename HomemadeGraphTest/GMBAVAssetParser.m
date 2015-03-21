@@ -17,8 +17,7 @@ extern struct fft_data fftd;
 
 @synthesize URLAsset;
 @synthesize asset;
-@synthesize assetReader;
-@synthesize audioAssetReader;
+//@synthesize audioAssetReader;
 @synthesize audioAssetReaders;
 @synthesize assetWriter;
 @synthesize player;
@@ -58,7 +57,7 @@ extern struct fft_data fftd;
 	 if (!userDataStructs)
 		 die("GMBAVAssetParser.initWithFileURL: malloc failed for _leftoverBufferList\n");
 
-	assetReader = [[AVAssetReader alloc] initWithAsset:asset error:nil];
+//	assetReader = [[AVAssetReader alloc] initWithAsset:asset error:nil];
 	playerItem = [[AVPlayerItem alloc] initWithAsset:asset];
 	player = [[AVPlayer alloc] initWithPlayerItem:playerItem];
 	player.volume = 0;
@@ -471,6 +470,14 @@ extern struct fft_data fftd;
 
 }
 
+-(void)destroyAssetReaders
+{
+	for (AVAssetReader* auReader in audioAssetReaders) {
+		[auReader removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
+	}
+	audioAssetReaders = nil;
+}
+
 -(void)recreateAudioAssetReaders
 {
 	//Deallocate all the old stuff.
@@ -478,10 +485,7 @@ extern struct fft_data fftd;
 	{
 		freeLeftOverBuffer(&_leftoverBufferList[i]);
 	}
-	for (AVAssetReader* auReader in audioAssetReaders)
-	{
-		[auReader removeObserver:self forKeyPath:NSStringFromSelector(@selector(status))];
-	}
+	[self destroyAssetReaders];
 
 	_numAudioAssetReadersReady = 0;
 	[self setValue:[NSNumber numberWithBool:NO] forKey:NSStringFromSelector(@selector(mediaIsReady))];
@@ -494,7 +498,7 @@ extern struct fft_data fftd;
 	assetReaderAudioTrackOutputs = [[NSMutableArray alloc] init];
 
 	NSError* err;
-	audioAssetReader = [[AVAssetReader alloc] initWithAsset:asset error:&err];
+//	audioAssetReader = [[AVAssetReader alloc] initWithAsset:asset error:&err];
 
 	int i = 0;
 	for (AVAssetTrack* auTrack in audioTracks)
@@ -505,9 +509,6 @@ extern struct fft_data fftd;
 		AVAssetReader* assetReader_ = [[AVAssetReader alloc] initWithAsset:asset error:nil];
 		[audioAssetReaders addObject:assetReader_];
 		[assetReader_ addObserver:self forKeyPath:NSStringFromSelector(@selector(status)) options:NSKeyValueObservingOptionNew context:mediaStatusChangedInternalContext];
-
-
-
 
 		AudioStreamBasicDescription* origASBD;
 		AudioStreamBasicDescription destASBD;
@@ -523,7 +524,6 @@ extern struct fft_data fftd;
 							true,
 							false,
 							(origASBD->mChannelsPerFrame > 1) ? false : true);
-		//			myUserData.streamFormat = destASBD;
 
 		AVAssetReaderTrackOutput* track1output = [[AVAssetReaderTrackOutput alloc]
 					initWithTrack:auTrack outputSettings:[[NSDictionary alloc]
@@ -602,7 +602,7 @@ extern struct fft_data fftd;
 		TPCircularBufferCleanup(&userDataStructs[i].buf);
 	}
 	asset = nil;
-	audioTracks = nil;
+	[self destroyAssetReaders];
 	userDataStructs = NULL;
 	mediaIsReady = nil;
 	assetReaderAudioTrackOutputs = nil;

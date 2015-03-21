@@ -44,6 +44,7 @@ struct fft_data fftd;
 @property int	numChannels;
 -(id) initWithBins: (unsigned int)N;
 -(void) process;
+-(void) reset;
 @end
 
 #endif
