@@ -10,6 +10,7 @@
 
 #import "GMBFourierAnalyzer.h"
 extern struct fft_data fftd;
+extern struct lpf lpf;
 
 static int pass = 0;
 static OSStatus inputRenderCallback (

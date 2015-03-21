@@ -12,8 +12,7 @@
 #import "GMBAudioChannel.h"
 #import "CAUtilityFunctions.h"
 #import "GMBAVAssetParser.h"
-//#import "GMBSampleBufferDelegate.h"
-//#import "GMBDelegate.h"
+#import "lpf.h"
 
 static void* nSourceTracksContext = &nSourceTracksContext;
 

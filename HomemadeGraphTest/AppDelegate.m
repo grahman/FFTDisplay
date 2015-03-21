@@ -145,6 +145,7 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		}
 		
 		if (assetParser.mediaIsReady) {
+			lpf.Fs = assetParser.originalASBD.mSampleRate;
 			[self setupMixer];
 			[self PlayAudioButtonClicked:nil];
 		}

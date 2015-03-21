@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "GMBFourierAnalyzer.h"
 
 
@@ -41,6 +42,8 @@
 	NSTextView *dblabels[5];
 	NSArray *dbs;
 	CGFloat dbpoints[5];
+	NSTrackingArea *filterTrackingArea;
+	BOOL mouseDownInTrackingArea;
 }
 
 @property double width;

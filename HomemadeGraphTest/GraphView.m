@@ -19,6 +19,7 @@ extern struct fft_data fftd;
 	self = [super initWithFrame:frame];
 	if (self) {
 		int i;
+
 		_W = _N = 2048;
 		_H = 500.0;
 		_fs = 48000.0;
@@ -60,8 +61,54 @@ extern struct fft_data fftd;
 			[dblabels[i] setBackgroundColor:[NSColor blackColor]];
 			[self addSubview:dblabels[i]];
 		}
+		
+		NSRect trackingRect = self.frame;
+		trackingRect.size.width -= marginX;
+		trackingRect.size.height -= marginY;
+		trackingRect.origin.x += marginX;
+		trackingRect.origin.y += marginY;
+		
+		filterTrackingArea = [[NSTrackingArea alloc] initWithRect:trackingRect
+							options:NSTrackingActiveAlways |
+								NSTrackingEnabledDuringMouseDrag |
+								NSTrackingMouseEnteredAndExited
+							owner:self
+							userInfo:nil];
+		
+		[self addTrackingArea:filterTrackingArea];
+		mouseDownInTrackingArea = NO;
+
 	}
 	return self;
+}
+
+-(void) updateTrackingAreas {
+	NSRect trackingRect = self.frame;
+
+	trackingRect.size.width -= marginX;
+	trackingRect.size.height -= marginY;
+}
+
+-(void) mouseDown:(NSEvent *)theEvent
+{
+	NSPoint eventOrigin = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	if (CGRectContainsPoint(filterTrackingArea.rect, eventOrigin)) {
+		mouseDownInTrackingArea = YES;
+	}
+}
+
+-(void) mouseUp:(NSEvent *)theEvent
+{
+	NSPoint loc = [theEvent locationInWindow];
+	if (CGRectContainsPoint(filterTrackingArea.rect, loc)) {
+		mouseDownInTrackingArea = YES;
+	}
+}
+
+-(void) mouseDragged: (NSEvent *)theEvent
+{
+	NSPoint eventOrigin = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+	
 }
 
 -(void) computePoints
@@ -203,5 +250,11 @@ extern struct fft_data fftd;
 	[self setNeedsDisplay:YES];
 }
 
+-(void) dealloc
+{
+	/* Not sure if this is necessary? */
+	[self removeTrackingArea:filterTrackingArea];
+	filterTrackingArea = nil;
+}
 
 @end

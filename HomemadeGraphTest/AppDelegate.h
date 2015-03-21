@@ -17,6 +17,7 @@
 
 #import "GMBFourierAnalyzer.h"
 #import "GraphView.h"
+#import "lpf.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
