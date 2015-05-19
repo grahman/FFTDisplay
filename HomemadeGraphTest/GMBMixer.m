@@ -146,6 +146,13 @@ static OSStatus inputRenderCallback (
 			int posL = 0;
 			int posR = 0;
 			float sample = 0;
+			/* Low-pass filter section */
+			GMBProcessArray_BiQuad2ndOrderLPF_Stereo(tail + (bytesRead / sizeof(float)),
+							       lpf.fc,
+							       lpf.Q,
+							       bytesToCopy / (float)sizeof(float));
+			
+			/* End low-pass filter section */
 			bytesToCopy *= 2;
 			if (bytesToCopy > availableBytes)
 			{
