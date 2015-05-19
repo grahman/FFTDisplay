@@ -38,7 +38,7 @@ void GMBProcessArray_BiQuad2ndOrderLPF_Mono(float* src, float fc, float Q, int N
 	
 	while (n < N)
 	{
-		while (n < 3)
+		while (flt_start && n < 3)
 		{
 			switch (n)
 			{
@@ -66,6 +66,8 @@ void GMBProcessArray_BiQuad2ndOrderLPF_Mono(float* src, float fc, float Q, int N
 					break;
 			}
 			++n;
+			if (n >= 3)
+				flt_start = 0;
 		}
 
 		lpf.yn_2L = lpf.yn_1L;
@@ -109,7 +111,7 @@ void GMBProcessArray_BiQuad2ndOrderLPF_Stereo(float* src, float fc, float Q, int
 	
 	while (n < N)
 	{
-		while (n < 5)
+		while (flt_start && n < 5)
 		{
 			switch (n)
 			{
@@ -156,6 +158,8 @@ void GMBProcessArray_BiQuad2ndOrderLPF_Stereo(float* src, float fc, float Q, int
 					break;
 			}
 			++n;
+			if (n >= 5)
+				flt_start = 0;
 		}
 		if (n % 2 == 0)
 		{

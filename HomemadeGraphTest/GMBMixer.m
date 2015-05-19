@@ -74,16 +74,17 @@ static OSStatus inputRenderCallback (
 								       lpf.fc,
 								       lpf.Q,
 								       bytesToCopy / (float)sizeof(float));
+				
 				/* End low-pass filter section */
 #ifdef FFT
 				/* FFT Analysis */
 				if (n) {
 					if (n < (bytesToCopy / sizeof(float))) {
-						memcpy(&fftd.REX1[fftd.pos], tail, n * sizeof(float));
+						memcpy(&fftd.REX1[fftd.pos], ioData->mBuffers[0].mData + (bytesRead / sizeof(float)), n * sizeof(float));
 						fftd.pos += n;
 					}
 					else {
-						memcpy(&fftd.REX1[fftd.pos], tail, bytesToCopy);
+						memcpy(&fftd.REX1[fftd.pos], ioData->mBuffers[0].mData + (bytesRead / sizeof(float)), bytesToCopy);
 						fftd.pos += (bytesToCopy / sizeof(float));
 					}
 				}
