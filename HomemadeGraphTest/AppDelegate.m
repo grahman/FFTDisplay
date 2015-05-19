@@ -51,6 +51,10 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 	
 	/********END DEBUG AREA**************/
 	
+	/* Initialize filter */
+	flt_start = 0;
+	/* End filter init */
+	
 	NSScreen* primaryDisplay = [NSScreen mainScreen];
 	NSRect visibleFrame = primaryDisplay.visibleFrame;
 	NSRect originRect = {0};
@@ -147,6 +151,7 @@ static void* transportHUDSeekPosChangedMouseDownContext = &transportHUDSeekPosCh
 		if (assetParser.mediaIsReady) {
 			lpf.Fs = assetParser.originalASBD.mSampleRate;
 			[self setupMixer];
+			flt_start = 1;
 			[self PlayAudioButtonClicked:nil];
 		}
 		

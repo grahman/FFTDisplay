@@ -8,7 +8,6 @@
 
 #import "GMBMixer.h"
 
-#import "GMBFourierAnalyzer.h"
 extern struct fft_data fftd;
 extern struct lpf lpf;
 
@@ -70,6 +69,12 @@ static OSStatus inputRenderCallback (
 				memcpy(ioData->mBuffers[0].mData + bytesRead,
 					tail,
 					bytesToCopy);
+				/* Low-pass filter section */
+				GMBProcessArray_BiQuad2ndOrderLPF_Mono(ioData->mBuffers[0].mData + (bytesRead / sizeof(float)),
+								       lpf.fc,
+								       lpf.Q,
+								       bytesToCopy / (float)sizeof(float));
+				/* End low-pass filter section */
 #ifdef FFT
 				/* FFT Analysis */
 				if (n) {
@@ -121,14 +126,13 @@ static OSStatus inputRenderCallback (
 						fftd.pos += n;
 					}
 				}
-				
 				/* End FFT Analysis */
 #endif
 				bytesRead += (sizeof(float) * 2);
 				userData->bytePos += (sizeof(float) * 2);
-				bytesToCopy -= (sizeof(float) );
+				bytesToCopy -= (sizeof(float));
 				pos += sizeof(float);
-				if ( bytesToCopy < 1)
+				if (bytesToCopy < 1)
 					break;
 			}
 			ioData->mBuffers[0].mDataByteSize = bytesRead;

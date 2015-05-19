@@ -12,7 +12,9 @@
 //Filter coefficients global vars, etc...
 struct lpf {
 	float Fs;				//Sample rate
+	float fc;
 	float fc_r;				//Angular cutoff frequency
+	float Q;
 	float d;
 	float beta;
 	float gamma;
@@ -40,5 +42,11 @@ struct lpf {
 };
 
 struct lpf lpf;
+
+int flt_start;
+
+void GMBProcessArray_BiQuad2ndOrderLPF_Mono(float* src, float fc, float Q, int N);
+
+void GMBProcessArray_BiQuad2ndOrderLPF_Stereo(float* src, float fc, float Q, int N);
 
 #endif

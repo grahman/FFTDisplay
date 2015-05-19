@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 #import "GMBFourierAnalyzer.h"
+#import "lpf.h"
 
 
 #ifndef marginX
