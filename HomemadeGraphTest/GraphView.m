@@ -99,46 +99,6 @@ extern struct fft_data fftd;
 	[self addTrackingArea:filterTrackingArea];
 }
 
-//-(void) mouseDown:(NSEvent *)theEvent
-//{
-//	NSPoint eventOrigin = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-//	if (CGRectContainsPoint(filterTrackingArea.rect, eventOrigin)) {
-//		float x = eventOrigin.x;
-//		float k;
-//		CGFloat width = self.frame.size.width - marginX;
-//		
-//		mouseDownInTrackingArea = YES;
-//
-////		k = expf((x - marginX) / (.144 * width)) - 1;
-////		lpf.fc = (k * fftd.Fs) / (float)fftd.N;
-////		lpf.Q = eventOrigin.y / filterTrackingArea.rect.size.height;
-//	}
-//}
-//
-//-(void) mouseMoved:(NSEvent *)theEvent
-//{
-//	if (mouseDownInTrackingArea) {
-//		NSPoint eventOrigin = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-//		float x = eventOrigin.x;
-//		float k;
-//		
-//		CGFloat width = self.frame.size.width - marginX;
-//		
-//		k = expf((x - marginX) / (.144 * width)) - 1;
-//		lpf.fc = (k * fftd.Fs) / (float)fftd.N;
-//		lpf.Q = eventOrigin.y / filterTrackingArea.rect.size.height;
-//	}
-//
-//}
-//
-//-(void) mouseUp:(NSEvent *)theEvent
-//{
-//	NSPoint loc = [theEvent locationInWindow];
-//	if (CGRectContainsPoint(filterTrackingArea.rect, loc)) {
-//		mouseDownInTrackingArea = NO;
-//	}
-//}
-
 -(void) mouseDragged:(NSEvent *)theEvent
 {
 	NSPoint eventOrigin = [self convertPoint:[theEvent locationInWindow] fromView:nil];
